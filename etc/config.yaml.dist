@@ -1,5 +1,5 @@
 # [To apply changes: init_project.sh -fc] Possible values: git, composer
-checkout_source_from: "git"
+checkout_source_from: "composer"
 
 composer_project:
   # Current section used only if 'checkout_source_from' is set to 'composer'

@@ -36,6 +36,7 @@ checkout_source_from="$(bash "${vagrant_dir}/scripts/get_config_value.sh" "check
 
 function checkoutSourceCodeFromGit()
 {
+    cd ${magento_ce_dir} && tar xjf Magento-CE-2.3.0.tar.bz2
     if [[ ! -d ${magento_ce_dir} ]]; then
         if [[ ${host_os} == "Windows" ]]; then
             status "Configuring git for Windows host"
@@ -61,8 +62,7 @@ function checkoutSourceCodeFromGit()
 
 function initMagentoCeGit()
 {
-    cd magento && tar xjf Magento-CE-2.3.0.tar.bz2
-#    initGitRepository ${repository_url_ce} "CE" "${magento_ce_dir}"
+    initGitRepository ${repository_url_ce} "CE" "${magento_ce_dir}"
 }
 
 function initMagentoEeGit()
@@ -245,8 +245,8 @@ if [[ $(isMinikubeRunning) -eq 0 ]]; then
 fi
 status "Configuring kubernetes cluster on the minikube"
 # TODO: Optimize. Helm tiller must be initialized and started before environment configuration can begin
-helm init --wait --debug
-#waitForKubernetesPodToRun 'tiller-deploy'
+helm init --debug
+waitForKubernetesPodToRun 'tiller-deploy'
 
 # TODO: change k-rebuild-environment to comply with formatting requirements
 if [[ "${disable_nfs}" == 1 ]]; then

@@ -9,7 +9,7 @@ resetNestingLevel
 
 if [[ ! $(isMinikubeRunning) -eq 1 ]]; then
     // TDOO: Eliminate duplication with k-restart
-    sudo minikube start  --vm-driver=none --bootstrapper=kubeadm --kubernetes-version=v1.13.0 2> >(logError)
+    sudo minikube start --cache-images --cpus=2 --memory=4096  --vm-driver=none --bootstrapper=kubeadm --kubernetes-version=v1.13.0 2> >(logError)
 fi
 
 

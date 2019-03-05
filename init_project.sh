@@ -229,11 +229,11 @@ cd "${vagrant_dir}"
 if [[ $(isMinikubeRunning) -eq 0 ]]; then
     status "Starting minikube"
     #echo "$(python -c 'import os,sys;print(os.path.realpath("."));')/ -alldirs -mapall="$(id -u)":"$(id -g)" $(minikube ip)" | sudo tee -a /etc/exports && sudo nfsd restart
-    sudo minikube start  --vm-driver=none --bootstrapper=kubeadm --kubernetes-version=v1.13.0
+    sudo minikube start --cache-images --cpus=2 --memory=4096  --vm-driver=none --bootstrapper=kubeadm --kubernetes-version=v1.13.0
     minikube addons enable ingress
     minikube addons enable heapster
     # hanged in some cases todo
-#    sudo minikube start  --vm-driver=none --bootstrapper=kubeadm --kubernetes-version=v1.13.0 2> >(logError) | {
+#    sudo minikube start --cache-images --cpus=2 --memory=4096  --vm-driver=none --bootstrapper=kubeadm --kubernetes-version=v1.13.0 2> >(logError) | {
 #      while IFS= read -r line
 #      do
 #        filterVagrantOutput "${line}"

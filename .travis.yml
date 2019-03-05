@@ -11,10 +11,12 @@ before_script:
   - sudo mount --make-rshared /
   # Download kubectl, which is a requirement for using minikube.
   - curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
-  # Download minikube.
+  # Download Minikube.
   - curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.34.1/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
-  # Download helm
+  # Download Helm
   - curl https://raw.githubusercontent.com/helm/helm/master/scripts/get > get_helm.sh && chmod +x get_helm.sh && sudo ./get_helm.sh
+  # Socat is required fo proper Helm operation
+  - sudo apt-get update && sudo apt-get install socat
 
 script:
   # Deploy magento

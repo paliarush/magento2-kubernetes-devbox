@@ -15,7 +15,7 @@ cd "${vagrant_dir}/scripts" && docker build -t magento2-monolith:dev-xdebug -f .
 # TODO: Delete does not work when no releases created yet
 cd "${vagrant_dir}/etc/helm"
 set +e
-#helm list -q | xargs helm delete --purge
+helm list -q | xargs helm delete --purge
 set -e
 
 # TODO: Need to make sure all resources have been successfully deleted before the attempt of recreating them
@@ -29,6 +29,7 @@ while getopts 'de' flag; do
     *) error "Unexpected option" && exit 1;;
   esac
 done
+
 cd "${vagrant_dir}/etc/helm" && helm install \
     --name magento2 \
     --values values.yaml \
@@ -38,6 +39,7 @@ cd "${vagrant_dir}/etc/helm" && helm install \
     --set global.checkout.enabled="${enable_checkout}" \
     --set global.checkout.volumeHostPath="${vagrant_dir}" .
 
+waitForKubernetesPodToRun 'tiller-deploy'
 # TODO: Waiting for containers to initialize before proceeding
 waitForKubernetesPodToRun 'magento2-monolith'
 waitForKubernetesPodToRun 'magento2-mysql'

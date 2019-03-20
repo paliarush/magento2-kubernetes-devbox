@@ -5,7 +5,7 @@ Install minikube.
 Start minikube. And use docker env.
 
 ```bash
-sudo minikube start --cache-images --cpus=2 --memory=4096  --vm-driver=none --bootstrapper=kubeadm --kubernetes-version=v1.13.0
+sudo minikube start --cpus=2 --memory=4096  --vm-driver=none --bootstrapper=kubeadm --kubernetes-version=v1.13.0
 eval $(minikube docker-env)
 ```
 

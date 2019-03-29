@@ -226,7 +226,6 @@ cd "${vagrant_dir}"
 #    To reconfigure PHP Storm add '-p' flag."
 #    exit 0
 #fi
-echo "ENV_VARIABLE=${CHANGE_MINIKUBE_NONE_USER}"
 
 if [[ $(isMinikubeRunning) -eq 0 ]]; then
     status "Starting minikube"

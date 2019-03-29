@@ -16,9 +16,9 @@ before_script:
   # Download Helm
   - curl https://raw.githubusercontent.com/helm/helm/master/scripts/get > get_helm.sh && chmod +x get_helm.sh && sudo ./get_helm.sh
   # Socat is required fo proper Helm operation
-  - sudo apt-get update && sudo apt-get install socat
+  - sudo apt-get update && sudo apt-get install -y socat
   # TODO Install sudo apt install nfs-kernel-server
-  - sudo apt install nfs-kernel-server
+  - sudo apt install -y nfs-kernel-server
 
 script:
   # Deploy magento

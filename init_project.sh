@@ -36,7 +36,7 @@ checkout_source_from="$(bash "${vagrant_dir}/scripts/get_config_value.sh" "check
 
 function checkoutSourceCodeFromGit()
 {
-    cd ${magento_ce_dir} && tar xjf Magento-CE-2.3.0.tar.bz2
+    #cd ${magento_ce_dir} && tar xjf Magento-CE-2.3.0.tar.bz2
     if [[ ! -d ${magento_ce_dir} ]]; then
         if [[ ${host_os} == "Windows" ]]; then
             status "Configuring git for Windows host"

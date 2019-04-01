@@ -45,4 +45,6 @@ waitForKubernetesPodToRun 'magento2-monolith'
 waitForKubernetesPodToRun 'magento2-mysql'
 waitForKubernetesPodToRun 'magento2-redis-master'
 
+sleep 20
+
 exit 0

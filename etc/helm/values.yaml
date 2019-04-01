@@ -43,7 +43,7 @@ global:
     volumeHostPath: /Users/user/Projects/magento2-kubernetes-for-developers
   persistence:
     nfs:
-      enabled: true
+      enabled: false
 
 resources: {}
   # Uncomment the following

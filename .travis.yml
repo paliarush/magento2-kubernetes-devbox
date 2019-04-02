@@ -22,4 +22,4 @@ before_script:
 
 script:
   # Deploy magento
-  - sudo ./init_project.sh
+  - sudo ./init_project.sh -fc

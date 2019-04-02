@@ -36,29 +36,28 @@ checkout_source_from="$(bash "${vagrant_dir}/scripts/get_config_value.sh" "check
 
 function checkoutSourceCodeFromGit()
 {
-    rm -rf "${magento_ce_dir}"
     #cd ${magento_ce_dir} && tar xjf Magento-CE-2.3.0.tar.bz2
-#    if [[ ! -d ${magento_ce_dir} ]]; then
-#        if [[ ${host_os} == "Windows" ]]; then
-#            status "Configuring git for Windows host"
-#            git config --global core.autocrlf false
-#            git config --global core.eol LF
-#            git config --global diff.renamelimit 5000
-#        fi
+    if [[ ! -d ${magento_ce_dir} ]]; then
+        if [[ ${host_os} == "Windows" ]]; then
+            status "Configuring git for Windows host"
+            git config --global core.autocrlf false
+            git config --global core.eol LF
+            git config --global diff.renamelimit 5000
+        fi
 
         initMagentoCeGit
-#        initMagentoCeSampleGit
-#
-#        # By default EE repository is not specified and EE project is not checked out
-#        if [[ -n "${repository_url_ee}" ]]; then
-#            initMagentoEeGit
-#        fi
-#        # By default EE sample data repository is not specified and EE project is not checked out
-#        repository_url_ee_sample_data="$(bash "${vagrant_dir}/scripts/get_config_value.sh" "repository_url_ee_sample_data")"
-#        if [ -n "${repository_url_ee_sample_data}" ]; then
-#            initMagentoEeSampleGit
-#        fi
-#    fi
+        initMagentoCeSampleGit
+
+        # By default EE repository is not specified and EE project is not checked out
+        if [[ -n "${repository_url_ee}" ]]; then
+            initMagentoEeGit
+        fi
+        # By default EE sample data repository is not specified and EE project is not checked out
+        repository_url_ee_sample_data="$(bash "${vagrant_dir}/scripts/get_config_value.sh" "repository_url_ee_sample_data")"
+        if [ -n "${repository_url_ee_sample_data}" ]; then
+            initMagentoEeSampleGit
+        fi
+    fi
 }
 
 function initMagentoCeGit()

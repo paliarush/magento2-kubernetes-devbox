@@ -20,6 +20,8 @@ spec:
                 app.kubernetes.io/name: {{ include "magento.name" . }}
                 app.kubernetes.io/instance: {{ .Release.Name }}
         spec:
+            securityContext:
+              runAsUser: 2000
             containers:
                 - name: {{ .Chart.Name }}
                   image: magento2-monolith:dev

@@ -36,7 +36,11 @@ if [[ ${host_os} == "Linux" ]]; then
     if [[ -z "$(grep "${nfs_exports_record}" /etc/exports)" ]]; then
         status "Updating /etc/exports to enable codebase sharing with containers via NFS"
         echo "${nfs_exports_record}" | sudo tee -a "/etc/exports" 2> >(logError) > >(log)
+        sudo exportfs -ra
+        sudo systemctl restart nfs-config
         sudo service nfs-kernel-server restart
+        sudo showmount -e
+        sudo ps ax | grep rpc.mountd
         # TODO: Implement NFS exports clean up on project removal to prevent NFS mounting errors
     else
         warning "NFS exports are properly configured and do not need to be updated"

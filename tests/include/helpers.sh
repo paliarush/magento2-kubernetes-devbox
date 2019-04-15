@@ -95,7 +95,7 @@ function deployVagrantProject()
     echo "${grey}## deployVagrantProject${regular}"
     echo "## deployVagrantProject" >>${current_log_file_path}
     cd "${vagrant_dir}"
-    bash init_project.sh -fcd 2> >(logAndEcho) | {
+    bash init_project.sh -fc 2> >(logAndEcho) | {
       while IFS= read -r line
       do
         logAndEcho "${line}"

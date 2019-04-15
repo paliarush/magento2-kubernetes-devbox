@@ -218,6 +218,7 @@ fi
 
 status "Making magento files readable and writable by anybody"
 sudo chmod -R a+wx "${vagrant_dir}"
+sudo chown -R travis:travis "${vagrant_dir}"
 sudo stat "${vagrant_dir}"
 
 status "Initializing dev box"

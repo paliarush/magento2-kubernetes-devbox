@@ -32,7 +32,7 @@ fi
 
 if [[ ${host_os} == "Linux" ]]; then
     # TODO: Detect network IP dynamically
-    nfs_exports_record="\"${vagrant_dir}\" 172.17.0.0/255.255.0.0(rw,no_subtree_check,all_squash,anonuid=$(id -u),anongid=$(id -g))"
+    nfs_exports_record="\"${vagrant_dir}\" 172.17.0.0/255.255.0.0(rw,no_subtree_check)"
     if [[ -z "$(grep "${nfs_exports_record}" /etc/exports)" ]]; then
         status "Updating /etc/exports to enable codebase sharing with containers via NFS"
         echo "${nfs_exports_record}" | sudo tee -a "/etc/exports" 2> >(logError) > >(log)

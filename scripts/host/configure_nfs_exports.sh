@@ -16,7 +16,9 @@ fi
 
 status "Exporting NFS"
 host_os="$(bash "${vagrant_dir}/scripts/host/get_host_os.sh")"
+status "Host OS: ${host_os}"
 nfs_exports_record="$(bash "${vagrant_dir}/scripts/host/get_nfs_exports_record.sh")"
+echo "NFS Export Record: ${nfs_exports_record}"
 if [[ ${host_os} == "OSX" ]]; then
     if [[ -z "$(grep "${nfs_exports_record}" /etc/exports)" ]]; then
         status "Updating /etc/exports to enable codebase sharing with containers via NFS (${nfs_exports_record})"

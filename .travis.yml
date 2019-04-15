@@ -33,3 +33,4 @@ after_failure:
   - sudo kubectl describe pods
   - sudo kubectl describe deployments
   - sudo kubectl get pv,pvc
+  - sudo cat /etc/exports

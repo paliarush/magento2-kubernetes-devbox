@@ -51,6 +51,8 @@ spec:
                       - name: IS_WINDOWS_HOST
                         value: "0"
                 - name: {{ .Chart.Name }}-xdebug
+                  command:
+                      - showmount -e 172.17.0.1
                   image: magento2-monolith:dev-xdebug
                   imagePullPolicy: Never
                   securityContext:

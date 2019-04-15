@@ -5,8 +5,7 @@ set -e
 
 vagrant_dir=$PWD
 
-sudo addgroup nfs --gid 666
-sudo adduser nfs --uid 666
+sudo adduser nfsuser --uid 666
 
 source "${vagrant_dir}/scripts/functions.sh"
 resetNestingLevel
@@ -221,7 +220,7 @@ fi
 
 status "Making magento files readable and writable by anybody"
 sudo chmod -R a+wx "${vagrant_dir}"
-sudo chown -R nfs "${vagrant_dir}"
+sudo chown -R nfsuser "${vagrant_dir}"
 sudo stat "${vagrant_dir}"
 
 status "Initializing dev box"

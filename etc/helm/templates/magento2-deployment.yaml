@@ -21,16 +21,16 @@ spec:
                 app.kubernetes.io/instance: {{ .Release.Name }}
         spec:
             securityContext:
-              runAsUser: 666
-              runAsGroup: 666
-              fsGroup: 666
+              runAsUser: 2000
+              runAsGroup: 2000
+              fsGroup: 2000
             containers:
                 - name: {{ .Chart.Name }}
                   image: magento2-monolith:dev
                   imagePullPolicy: Never
                   securityContext:
-                      runAsUser: 666
-                      runAsGroup: 666
+                      runAsUser: 2000
+                      runAsGroup: 2000
                       privileged: true
                   ports:
                       - containerPort: {{ .Values.global.monolith.service.port }}
@@ -54,8 +54,8 @@ spec:
                   image: magento2-monolith:dev-xdebug
                   imagePullPolicy: Never
                   securityContext:
-                        runAsUser: 666
-                        runAsGroup: 666
+                        runAsUser: 2000
+                        runAsGroup: 2000
                         privileged: true
                   ports:
                       - containerPort: {{ .Values.xdebugService.port }}
@@ -78,8 +78,8 @@ spec:
                 - name: nginx
                   image: nginx:1.9
                   securityContext:
-                      runAsUser: 666
-                      runAsGroup: 666
+                      runAsUser: 2000
+                      runAsGroup: 2000
                       privileged: true
                   volumeMounts:
                       - name: code

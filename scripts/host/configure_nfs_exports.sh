@@ -14,8 +14,8 @@ if [[ ${debug_vagrant_project} -eq 1 ]]; then
     set -x
 fi
 
+status "Exporting NFS"
 host_os="$(bash "${vagrant_dir}/scripts/host/get_host_os.sh")"
-
 nfs_exports_record="$(bash "${vagrant_dir}/scripts/host/get_nfs_exports_record.sh")"
 if [[ ${host_os} == "OSX" ]]; then
     if [[ -z "$(grep "${nfs_exports_record}" /etc/exports)" ]]; then
@@ -29,7 +29,6 @@ if [[ ${host_os} == "OSX" ]]; then
 fi
 
 if [[ ${host_os} == "Linux" ]]; then
-    nfs_exports_record="\"${vagrant_dir}\" 172.17.0.0/255.255.0.0(rw,no_subtree_check,all_squash,anonuid=$(id -u),anongid=$(id -g))"
     if [[ -z "$(grep "${nfs_exports_record}" /etc/exports)" ]]; then
         status "Updating /etc/exports to enable codebase sharing with containers via NFS (${nfs_exports_record})"
         echo "${nfs_exports_record}" | sudo tee -a "/etc/exports" 2> >(logError) > >(log)

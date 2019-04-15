@@ -33,5 +33,5 @@ after_failure:
   - sudo kubectl describe pods
   - sudo kubectl describe deployments
   - sudo kubectl get pv,pvc
-  - sudo kubectl logs
+  - sudo kubectl logs -l app=magento
   - sudo cat /etc/exports

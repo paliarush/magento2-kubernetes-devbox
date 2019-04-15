@@ -19,6 +19,7 @@ spec:
             labels:
                 app.kubernetes.io/name: {{ include "magento.name" . }}
                 app.kubernetes.io/instance: {{ .Release.Name }}
+                app: magento
         spec:
             securityContext:
               runAsUser: 2000

@@ -216,6 +216,9 @@ if [[ ! -d ${magento_ce_dir} ]]; then
     fi
 fi
 
+status "Making magento files readable and writable by anybody"
+sudo chmod -R a+wx "${vagrant_dir}"
+
 status "Initializing dev box"
 cd "${vagrant_dir}"
 

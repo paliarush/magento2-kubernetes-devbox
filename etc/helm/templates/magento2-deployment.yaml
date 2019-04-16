@@ -50,7 +50,7 @@ spec:
                         value: "0"
                 - name: {{ .Chart.Name }}-xdebug
                   command:
-                      - mkdir -p /var/lib/kubelet/pods/f7e0caee-607c-11e9-9164-42010a1e0527/volumes/kubernetes.io~nfs/magento2-monolith-volume && mount -t nfs -vvv 172.17.0.1:/home/travis/build/paliarush/magento2-kubernetes-devbox/tests/tmp/test/magento2-vagrant /var/lib/kubelet/pods/f7e0caee-607c-11e9-9164-42010a1e0527/volumes/kubernetes.io~nfs/magento2-monolith-volume
+                      - mkdir -p /home/travis/build/paliarush/magento2-kubernetes-devbox/tests/tmp/test/magento2-vagrant/mnt && mount -t nfs -vvv 172.17.0.1:/home/travis/build/paliarush/magento2-kubernetes-devbox/tests/tmp/test/magento2-vagrant /home/travis/build/paliarush/magento2-kubernetes-devbox/tests/tmp/test/magento2-vagrant/mnt
                   image: magento2-monolith:dev-xdebug
                   imagePullPolicy: Never
                   securityContext:
@@ -102,7 +102,7 @@ spec:
                         value: "0"
                 - name: {{ .Chart.Name }}-xdebug-b
                   command:
-                      - ping 172.17.0.1
+                      - ping google.com
                   image: magento2-monolith:dev-xdebug
                   imagePullPolicy: Never
                   securityContext:

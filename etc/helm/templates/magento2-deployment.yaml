@@ -23,15 +23,12 @@ spec:
         spec:
             securityContext:
               runAsUser: 667
-              runAsGroup: 667
-              fsGroup: 667
             containers:
                 - name: {{ .Chart.Name }}
                   image: magento2-monolith:dev
                   imagePullPolicy: Never
                   securityContext:
                       runAsUser: 667
-                      runAsGroup: 667
                       privileged: true
                   ports:
                       - containerPort: {{ .Values.global.monolith.service.port }}
@@ -53,12 +50,11 @@ spec:
                         value: "0"
                 - name: {{ .Chart.Name }}-xdebug
                   command:
-                      - showmount -e 172.17.0.1
+                      - mkdir -p /var/lib/kubelet/pods/f7e0caee-607c-11e9-9164-42010a1e0527/volumes/kubernetes.io~nfs/magento2-monolith-volume && mount -t nfs -vvv 172.17.0.1:/home/travis/build/paliarush/magento2-kubernetes-devbox/tests/tmp/test/magento2-vagrant /var/lib/kubelet/pods/f7e0caee-607c-11e9-9164-42010a1e0527/volumes/kubernetes.io~nfs/magento2-monolith-volume
                   image: magento2-monolith:dev-xdebug
                   imagePullPolicy: Never
                   securityContext:
                         runAsUser: 667
-                        runAsGroup: 667
                         privileged: true
                   ports:
                       - containerPort: {{ .Values.xdebugService.port }}
@@ -85,7 +81,6 @@ spec:
                   imagePullPolicy: Never
                   securityContext:
                         runAsUser: 667
-                        runAsGroup: 667
                         privileged: true
                   ports:
                       - containerPort: {{ .Values.xdebugService.port }}
@@ -112,7 +107,6 @@ spec:
                   imagePullPolicy: Never
                   securityContext:
                         runAsUser: 667
-                        runAsGroup: 667
                         privileged: true
                   ports:
                       - containerPort: {{ .Values.xdebugService.port }}
@@ -136,7 +130,6 @@ spec:
                   image: nginx:1.9
                   securityContext:
                       runAsUser: 667
-                      runAsGroup: 667
                       privileged: true
                   volumeMounts:
                       - name: code

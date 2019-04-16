@@ -13,7 +13,7 @@ elif [[ ${host_os} == "Linux" ]]; then
     nfs_exports_record="\"${vagrant_dir}\" 172.17.0.0/255.255.0.0(rw,all_squash,anonuid=667,anongid=667)"
 else
     error "Host OS is not supported"
-    exit 1172.17.0.1:/home/travis/build/paliarush/magento2-kubernetes-devbox/tests/tmp/test/magento2-vagrant
+    exit 1
 fi
 
 echo "${nfs_exports_record}"

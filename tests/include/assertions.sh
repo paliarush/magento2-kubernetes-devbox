@@ -2,24 +2,21 @@
 
 ## Assertion groups
 
-function executeBasicCommonAssertions()
+function executeCommonAssertions()
 {
+    # TODO: Implement functionality and uncomment assertions
+#    assertPhpStormConfigured
+
     # Make sure Magento was installed and is accessible
     assertMagentoInstalledSuccessfully
     assertMagentoFrontendAccessible
     assertMagentoCliWorks
-}
-
-function executeExtendedCommonAssertions()
-{
-    # TODO: Implement functionality and uncomment assertions
-#    assertPhpStormConfigured
 
 #    # Make sure Magento is still accessible after restarting services
 #    assertMysqlRestartWorks
 #    assertApacheRestartWorks
 #    assertMagentoFrontendAccessible
-
+#
     # Make sure Magento reinstall script works
     assertMagentoReinstallWorks
     assertMagentoFrontendAccessible

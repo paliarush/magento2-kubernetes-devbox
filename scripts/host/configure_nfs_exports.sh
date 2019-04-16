@@ -14,14 +14,14 @@ if [[ ${debug_vagrant_project} -eq 1 ]]; then
     set -x
 fi
 
-status "Exporting NFS"
 host_os="$(bash "${vagrant_dir}/scripts/host/get_host_os.sh")"
-status "Host OS: ${host_os}"
-nfs_exports_record="$(bash "${vagrant_dir}/scripts/host/get_nfs_exports_record.sh")"
-echo "NFS Export Record: ${nfs_exports_record}"
+
+# TODO: Calculate network IP
 if [[ ${host_os} == "OSX" ]]; then
+    # TODO: Detect network IP dynamically
+    nfs_exports_record="\"${vagrant_dir}\" -alldirs -mapall=$(id -u):$(id -g) -mask 255.0.0.0 -network 192.0.0.0"
     if [[ -z "$(grep "${nfs_exports_record}" /etc/exports)" ]]; then
-        status "Updating /etc/exports to enable codebase sharing with containers via NFS (${nfs_exports_record})"
+        status "Updating /etc/exports to enable codebase sharing with containers via NFS"
         echo "${nfs_exports_record}" | sudo tee -a "/etc/exports" 2> >(logError) > >(log)
         sudo nfsd restart
         # TODO: Implement NFS exports clean up on project removal to prevent NFS mounting errors
@@ -31,14 +31,12 @@ if [[ ${host_os} == "OSX" ]]; then
 fi
 
 if [[ ${host_os} == "Linux" ]]; then
+    # TODO: Detect network IP dynamically
+    nfs_exports_record="\"${vagrant_dir}\" 172.17.0.0/255.255.0.0(rw,no_subtree_check,all_squash,anonuid=$(id -u),anongid=$(id -g))"
     if [[ -z "$(grep "${nfs_exports_record}" /etc/exports)" ]]; then
-        status "Updating /etc/exports to enable codebase sharing with containers via NFS (${nfs_exports_record})"
+        status "Updating /etc/exports to enable codebase sharing with containers via NFS"
         echo "${nfs_exports_record}" | sudo tee -a "/etc/exports" 2> >(logError) > >(log)
-        sudo exportfs -ra
-        sudo systemctl restart nfs-config
         sudo service nfs-kernel-server restart
-        sudo showmount -e
-        sudo ps ax | grep rpc.mountd
         # TODO: Implement NFS exports clean up on project removal to prevent NFS mounting errors
     else
         warning "NFS exports are properly configured and do not need to be updated"

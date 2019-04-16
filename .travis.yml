@@ -36,7 +36,7 @@ script:
   # Run DevBox tests
   - cd ./tests && sudo bash ./testsuite.sh && cd ..
 
-after_failure:
+after_script:
   - sudo kubectl describe pods
   - sudo kubectl describe deployments
   - sudo kubectl get pv,pvc

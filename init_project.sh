@@ -5,6 +5,8 @@ set -e
 
 vagrant_dir=$PWD
 
+sudo adduser nfsuser
+
 source "${vagrant_dir}/scripts/functions.sh"
 resetNestingLevel
 current_script_name=`basename "$0"`

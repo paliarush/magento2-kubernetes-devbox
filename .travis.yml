@@ -18,7 +18,7 @@ before_script:
   # Socat is required fo proper Helm operation
   - sudo apt-get update && sudo apt-get install -y socat
   # TODO Install sudo apt install nfs-kernel-server
-  - sudo apt install -y nfs-kernel-server
+  - sudo apt install -y nfs-kernel-server nfs-utils nfs-common rpcbind nfslock
   - sudo ./scripts/host/configure_nfs_exports.sh
   - cp ./tests/include/configuration.sh.dist ./tests/include/configuration.sh
   - sed -i "s|git@github.com:|https://github.com/|g" ./etc/config.yaml.dist

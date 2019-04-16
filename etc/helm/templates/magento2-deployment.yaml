@@ -19,12 +19,19 @@ spec:
             labels:
                 app.kubernetes.io/name: {{ include "magento.name" . }}
                 app.kubernetes.io/instance: {{ .Release.Name }}
+                app: magento
         spec:
+            securityContext:
+              runAsUser: 667
+              runAsGroup: 667
+              fsGroup: 667
             containers:
                 - name: {{ .Chart.Name }}
                   image: magento2-monolith:dev
                   imagePullPolicy: Never
                   securityContext:
+                      runAsUser: 667
+                      runAsGroup: 667
                       privileged: true
                   ports:
                       - containerPort: {{ .Values.global.monolith.service.port }}
@@ -45,9 +52,13 @@ spec:
                       - name: IS_WINDOWS_HOST
                         value: "0"
                 - name: {{ .Chart.Name }}-xdebug
+                  command:
+                      - showmount -e 172.17.0.1
                   image: magento2-monolith:dev-xdebug
                   imagePullPolicy: Never
                   securityContext:
+                        runAsUser: 667
+                        runAsGroup: 667
                         privileged: true
                   ports:
                       - containerPort: {{ .Values.xdebugService.port }}
@@ -70,6 +81,8 @@ spec:
                 - name: nginx
                   image: nginx:1.9
                   securityContext:
+                      runAsUser: 667
+                      runAsGroup: 667
                       privileged: true
                   volumeMounts:
                       - name: code

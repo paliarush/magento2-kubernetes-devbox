@@ -5,7 +5,7 @@ set -e
 
 vagrant_dir=$PWD
 
-sudo adduser nfsuser
+sudo useradd -u 667 nfsuser
 
 source "${vagrant_dir}/scripts/functions.sh"
 resetNestingLevel

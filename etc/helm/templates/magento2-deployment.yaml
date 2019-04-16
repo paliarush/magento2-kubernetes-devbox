@@ -21,14 +21,11 @@ spec:
                 app.kubernetes.io/instance: {{ .Release.Name }}
                 app: magento
         spec:
-            securityContext:
-              runAsUser: 667
             containers:
                 - name: {{ .Chart.Name }}
                   image: magento2-monolith:dev
                   imagePullPolicy: Never
                   securityContext:
-                      runAsUser: 667
                       privileged: true
                   ports:
                       - containerPort: {{ .Values.global.monolith.service.port }}
@@ -49,64 +46,9 @@ spec:
                       - name: IS_WINDOWS_HOST
                         value: "0"
                 - name: {{ .Chart.Name }}-xdebug
-                  command:
-                      - mkdir -p /home/travis/build/paliarush/magento2-kubernetes-devbox/tests/tmp/test/magento2-vagrant/mnt && mount -t nfs -vvv 172.17.0.1:/home/travis/build/paliarush/magento2-kubernetes-devbox/tests/tmp/test/magento2-vagrant /home/travis/build/paliarush/magento2-kubernetes-devbox/tests/tmp/test/magento2-vagrant/mnt
                   image: magento2-monolith:dev-xdebug
                   imagePullPolicy: Never
                   securityContext:
-                        runAsUser: 667
-                        privileged: true
-                  ports:
-                      - containerPort: {{ .Values.xdebugService.port }}
-                  volumeMounts:
-                      - name: code
-                        mountPath: {{.Values.global.monolith.volumeHostPath}}
-                  env:
-                      - name: VAGRANT_ROOT
-                        value: {{.Values.global.monolith.volumeHostPath}}
-                      - name: COMPOSER_HOME
-                        value: {{.Values.global.monolith.volumeHostPath}}/.composer
-                      - name: MAGENTO_ROOT
-                        value: {{.Values.global.monolith.volumeHostPath}}/magento
-                      - name: MAGENTO_ROOT_HOST
-                        value: {{.Values.global.monolith.volumeHostPath}}/magento
-                      - name: VAGRANT_ROOT_HOST
-                        value: {{.Values.global.monolith.volumeHostPath}}
-                      - name: IS_WINDOWS_HOST
-                        value: "0"
-                - name: {{ .Chart.Name }}-xdebug-a
-                  command:
-                      - ifconfig
-                  image: magento2-monolith:dev-xdebug
-                  imagePullPolicy: Never
-                  securityContext:
-                        runAsUser: 667
-                        privileged: true
-                  ports:
-                      - containerPort: {{ .Values.xdebugService.port }}
-                  volumeMounts:
-                      - name: code
-                        mountPath: {{.Values.global.monolith.volumeHostPath}}
-                  env:
-                      - name: VAGRANT_ROOT
-                        value: {{.Values.global.monolith.volumeHostPath}}
-                      - name: COMPOSER_HOME
-                        value: {{.Values.global.monolith.volumeHostPath}}/.composer
-                      - name: MAGENTO_ROOT
-                        value: {{.Values.global.monolith.volumeHostPath}}/magento
-                      - name: MAGENTO_ROOT_HOST
-                        value: {{.Values.global.monolith.volumeHostPath}}/magento
-                      - name: VAGRANT_ROOT_HOST
-                        value: {{.Values.global.monolith.volumeHostPath}}
-                      - name: IS_WINDOWS_HOST
-                        value: "0"
-                - name: {{ .Chart.Name }}-xdebug-b
-                  command:
-                      - ping google.com
-                  image: magento2-monolith:dev-xdebug
-                  imagePullPolicy: Never
-                  securityContext:
-                        runAsUser: 667
                         privileged: true
                   ports:
                       - containerPort: {{ .Values.xdebugService.port }}
@@ -129,7 +71,6 @@ spec:
                 - name: nginx
                   image: nginx:1.9
                   securityContext:
-                      runAsUser: 667
                       privileged: true
                   volumeMounts:
                       - name: code

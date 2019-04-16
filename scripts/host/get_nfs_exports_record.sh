@@ -11,7 +11,7 @@ if [[ ${host_os} == "OSX" ]]; then
     nfs_exports_record="\"${vagrant_dir}\" -alldirs -mapall=$(id -u):$(id -g) -mask 255.0.0.0 -network 192.0.0.0"
 elif [[ ${host_os} == "Linux" ]]; then
 #    nfs_exports_record="\"${vagrant_dir}\" 172.17.0.0/255.255.0.0(rw,no_subtree_check,all_squash,anonuid=2000,anongid=2000)"
-    nfs_exports_record="${vagrant_dir} 172.17.0.1(rw,no_root_squash,anonuid=2000,anongid=2000)"
+    nfs_exports_record="${vagrant_dir} 172.17.0.1(rw,all_squash,anonuid=0,anongid=0)"
 else
     error "Host OS is not supported"
     exit 1

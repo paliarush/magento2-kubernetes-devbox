@@ -33,12 +33,12 @@ if [[ ${host_os} == "Linux" ]]; then
         echo "${nfs_exports_record}" | sudo tee -a "/etc/exports" 2> >(logError) > >(log)
         sudo service nfs-kernel-server restart
         sudo rpcinfo -p
-        sudo systemctl status rpc-statd.service
-        sudo systemctl add-wants multi-user.target rpcbind.service
+#        sudo systemctl status rpc-statd.service
+#        sudo systemctl add-wants multi-user.target rpcbind.service
         sudo  systemctl enable   rpcbind.service  # for the next reboot
         sudo  systemctl start    rpcbind.service
         sudo  systemctl restart  rpcbind.service
-        sudo systemctl status rpc-statd.service
+#        sudo systemctl status rpc-statd.service
         sudo service nfs-kernel-server restart
         sudo rpcinfo -p
         # TODO: Implement NFS exports clean up on project removal to prevent NFS mounting errors

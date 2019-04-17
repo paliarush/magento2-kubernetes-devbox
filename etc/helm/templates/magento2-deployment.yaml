@@ -29,6 +29,8 @@ spec:
                 securityContext:
                     privileged: true
             containers:
+                - name: dummy-container
+                    image: d3fk/nfs-client
                 {{/*- name: {{ .Chart.Name }}*/}}
                   {{/*image: magento2-monolith:dev*/}}
                   {{/*imagePullPolicy: Never*/}}
@@ -75,20 +77,20 @@ spec:
                         {{/*value: {{.Values.global.monolith.volumeHostPath}}*/}}
                       {{/*- name: IS_WINDOWS_HOST*/}}
                         {{/*value: "0"*/}}
-                - name: nginx
-                  image: nginx:1.9
-                  securityContext:
-                      privileged: true
-                  volumeMounts:
+                {{/*- name: nginx*/}}
+                  {{/*image: nginx:1.9*/}}
+                  {{/*securityContext:*/}}
+                      {{/*privileged: true*/}}
+                  {{/*volumeMounts:*/}}
                       {{/*- name: code*/}}
                         {{/*mountPath: {{.Values.global.monolith.volumeHostPath}}*/}}
-                      - name: nginx-config-volume
-                        mountPath: /etc/nginx/nginx.conf
-                        subPath: nginx.conf
-            volumes:
-                - name: nginx-config-volume
-                  configMap:
-                      name: {{ template "magento.fullname" . }}-nginx-config
+                      {{/*- name: nginx-config-volume*/}}
+                        {{/*mountPath: /etc/nginx/nginx.conf*/}}
+                        {{/*subPath: nginx.conf*/}}
+            {{/*volumes:*/}}
+                {{/*- name: nginx-config-volume*/}}
+                  {{/*configMap:*/}}
+                      {{/*name: {{ template "magento.fullname" . }}-nginx-config*/}}
                 {{/*- name: code*/}}
                 {{/*{{- if .Values.global.persistence.nfs.enabled }}*/}}
                   {{/*persistentVolumeClaim:*/}}

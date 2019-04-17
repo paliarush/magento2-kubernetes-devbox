@@ -25,7 +25,7 @@ spec:
               - name: nfs-test
                 image: d3fk/nfs-client
                 {{/*command: ['sh', '-c', 'echo "The app is running!"']*/}}
-                command: ['sh', '-c', 'echo "The app is running!" && mkdir -pv /var/test && chmod a+w /var/test && showmount -e 172.17.0.1 && echo "Before Mount" && mount -v 172.17.0.1:/home/travis/build/paliarush/magento2-kubernetes-devbox /var/test && ls -la /var/test']
+                command: ['sh', '-c', 'echo "The app is running!" && mkdir -pv /var/test && chmod a+w /var/test && showmount -e 172.17.0.1 && echo "Before Mount" && mount -v 172.17.0.1:/home/travis/build/paliarush/magento2-kubernetes-devbox/tests/tmp/test/magento2-vagrant /var/test && ls -la /var/test']
                 securityContext:
                     privileged: true
             containers:

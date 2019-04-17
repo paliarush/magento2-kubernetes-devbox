@@ -29,8 +29,8 @@ spec:
                 securityContext:
                     privileged: true
             containers:
-                - name: dummy-container
-                    image: d3fk/nfs-client
+              - name: dummy-container
+                image: d3fk/nfs-client
                 {{/*- name: {{ .Chart.Name }}*/}}
                   {{/*image: magento2-monolith:dev*/}}
                   {{/*imagePullPolicy: Never*/}}

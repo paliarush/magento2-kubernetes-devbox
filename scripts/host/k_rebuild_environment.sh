@@ -5,8 +5,8 @@ cd "$(dirname "${BASH_SOURCE[0]}")/../.." && vagrant_dir=$PWD
 source "${vagrant_dir}/scripts/functions.sh"
 
 ## TODO: Add status messages
-cd "${vagrant_dir}/scripts" && eval $(minikube docker-env) && docker build -t magento2-monolith:dev -f ../etc/docker/monolith/Dockerfile ../scripts
-cd "${vagrant_dir}/scripts" && eval $(minikube docker-env) && docker build -t magento2-monolith:dev-xdebug -f ../etc/docker/monolith-with-xdebug/Dockerfile ../scripts
+#cd "${vagrant_dir}/scripts" && eval $(minikube docker-env) && docker build -t magento2-monolith:dev -f ../etc/docker/monolith/Dockerfile ../scripts
+#cd "${vagrant_dir}/scripts" && eval $(minikube docker-env) && docker build -t magento2-monolith:dev-xdebug -f ../etc/docker/monolith-with-xdebug/Dockerfile ../scripts
 
 # TODO: Repeat for other deployments, not just Magento 2
 # See https://github.com/kubernetes/kubernetes/issues/33664#issuecomment-386661882

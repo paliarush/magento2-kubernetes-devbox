@@ -2,8 +2,8 @@ sudo: required
 # We need the systemd for the kubeadm and it's default from 16.04+
 dist: xenial
 # This moves Kubernetes specific config files.
-#env:
-#  - CHANGE_MINIKUBE_NONE_USER=true
+env:
+  - CHANGE_MINIKUBE_NONE_USER=true
 
 before_script:
   # Make root mounted as rshared to fix kube-dns issues.

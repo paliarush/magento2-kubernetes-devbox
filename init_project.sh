@@ -47,8 +47,8 @@ function checkoutSourceCodeFromGit()
 #            git config --global diff.renamelimit 5000
 #        fi
 
-        initMagentoCeGit
-#        initMagentoCeSampleGit
+#        initMagentoCeGit
+        initMagentoCeSampleGit
 
         # By default EE repository is not specified and EE project is not checked out
         if [[ -n "${repository_url_ee}" ]]; then

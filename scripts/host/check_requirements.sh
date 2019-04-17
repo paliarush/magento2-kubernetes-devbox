@@ -7,10 +7,10 @@ source "${vagrant_dir}/scripts/functions.sh"
 status "Checking requirements"
 incrementNestingLevel
 
-nfs_exports_record="$(bash "${vagrant_dir}/scripts/host/get_nfs_exports_record.sh")"
-if [[ -z "$(grep "${nfs_exports_record}" /etc/exports)" ]]; then
-    warning "NFS exports configuration required on the host. Please execute 'bash ${vagrant_dir}/scripts/host/configure_nfs_exports.sh' first."
-    exit 1
-fi
+#nfs_exports_record="$(bash "${vagrant_dir}/scripts/host/get_nfs_exports_record.sh")"
+#if [[ -z "$(grep "${nfs_exports_record}" /etc/exports)" ]]; then
+#    warning "NFS exports configuration required on the host. Please execute 'bash ${vagrant_dir}/scripts/host/configure_nfs_exports.sh' first."
+#    exit 1
+#fi
 
 decrementNestingLevel

@@ -32,6 +32,7 @@ if [[ ${host_os} == "Linux" ]]; then
         status "Updating /etc/exports to enable codebase sharing with containers via NFS (${nfs_exports_record})"
         echo "${nfs_exports_record}" | sudo tee -a "/etc/exports" 2> >(logError) > >(log)
         sudo service nfs-kernel-server restart
+        sudo rpcinfo -p
         sudo systemctl status rpc-statd.service
         sudo systemctl add-wants multi-user.target rpcbind.service
         sudo systemctl start rpcbind

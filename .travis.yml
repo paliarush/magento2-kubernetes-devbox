@@ -1,9 +1,9 @@
 sudo: required
 # We need the systemd for the kubeadm and it's default from 16.04+
-dist: trusty
+dist: xenial
 # This moves Kubernetes specific config files.
-env:
-  - CHANGE_MINIKUBE_NONE_USER=true
+#env:
+#  - CHANGE_MINIKUBE_NONE_USER=true
 
 before_script:
   # Make root mounted as rshared to fix kube-dns issues.
@@ -15,7 +15,7 @@ before_script:
   # Download Helm
   - curl https://raw.githubusercontent.com/helm/helm/master/scripts/get > get_helm.sh && chmod +x get_helm.sh && sudo ./get_helm.sh
   # Socat is required fo proper Helm operation
-  - sudo apt-get update && sudo apt-get install -y socat systemd
+  - sudo apt-get update && sudo apt-get install -y socat
   # TODO Install sudo apt install nfs-kernel-server
   - sudo apt install -y nfs-kernel-server nfs-common rpcbind
   - sudo ./scripts/host/configure_nfs_exports.sh

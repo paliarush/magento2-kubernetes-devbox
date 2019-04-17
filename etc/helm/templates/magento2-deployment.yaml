@@ -25,7 +25,7 @@ spec:
               - name: nfs-test
                 image: d3fk/nfs-client
                 {{/*command: ['sh', '-c', 'echo "The app is running!"']*/}}
-                command: ['sh', '-c', 'bash /var/www/mount_test.sh']
+                command: ['sh', '-c', '/var/www/mount_test.sh']
                 volumeMounts:
                     - name: code
                       mountPath: /var/www

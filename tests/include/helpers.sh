@@ -96,14 +96,15 @@ function deployVagrantProject()
     echo "## deployVagrantProject" >>${current_log_file_path}
     cd "${vagrant_dir}"
     sudo bash "${vagrant_dir}/scripts/host/configure_nfs_exports.sh"
-    bash init_project.sh -fcd 2> >(logAndEcho) | {
-      while IFS= read -r line
-      do
-        logAndEcho "${line}"
-        lastline="${line}"
-      done
-      logAndEcho "${lastline}"
-    }
+    bash init_project.sh -fcd
+#    bash init_project.sh -fcd 2> >(logAndEcho) | {
+#      while IFS= read -r line
+#      do
+#        logAndEcho "${line}"
+#        lastline="${line}"
+#      done
+#      logAndEcho "${lastline}"
+#    }
 }
 
 function stashMagentoCodebase()

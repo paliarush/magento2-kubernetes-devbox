@@ -35,8 +35,12 @@ if [[ ${host_os} == "Linux" ]]; then
         sudo rpcinfo -p
         sudo systemctl status rpc-statd.service
         sudo systemctl add-wants multi-user.target rpcbind.service
-        sudo systemctl start rpcbind
+        sudo  systemctl enable   rpcbind.service  # for the next reboot
+        sudo  systemctl start    rpcbind.service
+        sudo  systemctl restart  rpcbind.service
         sudo systemctl status rpc-statd.service
+        sudo service nfs-kernel-server restart
+        sudo rpcinfo -p
         # TODO: Implement NFS exports clean up on project removal to prevent NFS mounting errors
     else
         warning "NFS exports are properly configured and do not need to be updated"

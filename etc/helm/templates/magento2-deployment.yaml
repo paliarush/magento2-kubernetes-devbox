@@ -28,7 +28,7 @@ spec:
                 {{/*command: ['sh', '-c', 'echo "The app is running!" && mkdir -pv /var/test && mount -t nfs -vvv 172.17.0.1:/home/travis/build/paliarush/magento2-kubernetes-devbox/tests/tmp/test/magento2-vagrant /var/test && ls -la /var/test']*/}}
                 securityContext:
                     privileged: true
-            {{/*containers:*/}}
+            containers:
                 {{/*- name: {{ .Chart.Name }}*/}}
                   {{/*image: magento2-monolith:dev*/}}
                   {{/*imagePullPolicy: Never*/}}
@@ -75,16 +75,16 @@ spec:
                         {{/*value: {{.Values.global.monolith.volumeHostPath}}*/}}
                       {{/*- name: IS_WINDOWS_HOST*/}}
                         {{/*value: "0"*/}}
-                {{/*- name: nginx*/}}
-                  {{/*image: nginx:1.9*/}}
-                  {{/*securityContext:*/}}
-                      {{/*privileged: true*/}}
-                  {{/*volumeMounts:*/}}
+                - name: nginx
+                  image: nginx:1.9
+                  securityContext:
+                      privileged: true
+                  volumeMounts:
                       {{/*- name: code*/}}
                         {{/*mountPath: {{.Values.global.monolith.volumeHostPath}}*/}}
-                      {{/*- name: nginx-config-volume*/}}
-                        {{/*mountPath: /etc/nginx/nginx.conf*/}}
-                        {{/*subPath: nginx.conf*/}}
+                      - name: nginx-config-volume
+                        mountPath: /etc/nginx/nginx.conf
+                        subPath: nginx.conf
             {{/*volumes:*/}}
                 {{/*- name: nginx-config-volume*/}}
                   {{/*configMap:*/}}

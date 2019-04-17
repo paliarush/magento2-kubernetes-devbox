@@ -25,7 +25,10 @@ spec:
               - name: nfs-test
                 image: d3fk/nfs-client
                 {{/*command: ['sh', '-c', 'echo "The app is running!"']*/}}
-                command: ['sh', '-c', 'mkdir -pv /var/test && chmod a+w /var/test && showmount -e 172.17.0.1 && echo "Before Mount" && mount 172.17.0.1:/home/travis/build/paliarush/magento2-kubernetes-devbox/tests/tmp/test/magento2-vagrant /var/test && mount -l']
+                command: ['sh', '-c', 'bash /var/www/mount_test.sh']
+                volumeMounts:
+                    - name: code
+                      mountPath: /var/www
                 securityContext:
                     privileged: true
             containers:
@@ -87,15 +90,15 @@ spec:
                       {{/*- name: nginx-config-volume*/}}
                         {{/*mountPath: /etc/nginx/nginx.conf*/}}
                         {{/*subPath: nginx.conf*/}}
-            {{/*volumes:*/}}
+            volumes:
                 {{/*- name: nginx-config-volume*/}}
                   {{/*configMap:*/}}
                       {{/*name: {{ template "magento.fullname" . }}-nginx-config*/}}
-                {{/*- name: code*/}}
+                - name: code
                 {{/*{{- if .Values.global.persistence.nfs.enabled }}*/}}
                   {{/*persistentVolumeClaim:*/}}
                       {{/*claimName: {{ include "magento.fullname" . }}-claim*/}}
                 {{/*{{- else }}*/}}
-                  {{/*hostPath:*/}}
-                      {{/*path: {{.Values.global.monolith.volumeHostPath}}*/}}
+                  hostPath:
+                      path: {{.Values.global.monolith.volumeHostPath}}
                 {{/*{{- end }}*/}}

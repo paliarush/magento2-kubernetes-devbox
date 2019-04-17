@@ -46,4 +46,5 @@ after_script:
   - sudo kubectl logs -l app=magento -c monolith-xdebug-b
   - sudo kubectl logs -l app=magento -c monolith
   - sudo kubectl logs -l app=magento -c nginx
+  - sudo kubectl logs -l app=magento -c nfs-test
   - sudo cat /etc/exports

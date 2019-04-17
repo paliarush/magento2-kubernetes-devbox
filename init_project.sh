@@ -48,7 +48,7 @@ function checkoutSourceCodeFromGit()
 #        fi
 
         initMagentoCeGit
-        initMagentoCeSampleGit
+#        initMagentoCeSampleGit
 
         # By default EE repository is not specified and EE project is not checked out
         if [[ -n "${repository_url_ee}" ]]; then
@@ -220,7 +220,7 @@ fi
 
 status "Making magento files readable and writable by anybody"
 sudo chmod -R a+wx "${vagrant_dir}"
-sudo chown -R nfsuser "${vagrant_dir}"
+sudo chown -R travis:travis "${vagrant_dir}"
 sudo stat "${vagrant_dir}"
 
 status "Initializing dev box"

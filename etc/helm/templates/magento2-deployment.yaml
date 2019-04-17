@@ -21,6 +21,12 @@ spec:
                 app.kubernetes.io/instance: {{ .Release.Name }}
                 app: magento
         spec:
+            initContainers:
+              - name: nfs-test
+                image: d3fk/nfs-client
+                command: ['sh', '-c', 'echo The app is running! && mkdir -p /var/test && showmount -e 172.17.0.1 && mount -t nfs 172.17.0.1:/home/travis/build/paliarush/magento2-kubernetes-devbox/tests/tmp/test/magento2-vagrant /var/test && ls /var/test']
+                securityContext:
+                    privileged: true
             containers:
                 - name: {{ .Chart.Name }}
                   image: magento2-monolith:dev

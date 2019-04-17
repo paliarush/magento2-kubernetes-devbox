@@ -39,6 +39,7 @@ cd "${vagrant_dir}/etc/helm" && helm install \
     --name magento2 \
     --values values.yaml \
     --wait \
+    --debug \
     --set global.persistence.nfs.serverIp="${nfs_server_ip}" \
     --set global.monolith.volumeHostPath="${vagrant_dir}" \
     --set global.persistence.nfs.enabled="${enable_nfs}" \

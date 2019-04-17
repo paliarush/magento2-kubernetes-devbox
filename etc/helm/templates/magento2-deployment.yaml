@@ -24,75 +24,75 @@ spec:
             initContainers:
               - name: nfs-test
                 image: d3fk/nfs-client
-                command: ['sh', '-c', 'echo The app is running! && mkdir -p /var/test && showmount -e 172.17.0.1 && mount -t nfs 172.17.0.1:/home/travis/build/paliarush/magento2-kubernetes-devbox/tests/tmp/test/magento2-vagrant /var/test && ls /var/test']
+                command: ['sh', '-c', 'echo The app is running! && mkdir -pv /var/test && mount -t nfs -vvv 172.17.0.1:/home/travis/build/paliarush/magento2-kubernetes-devbox/tests/tmp/test/magento2-vagrant /var/test && ls -la /var/test']
                 securityContext:
                     privileged: true
-            containers:
-                - name: {{ .Chart.Name }}
-                  image: magento2-monolith:dev
-                  imagePullPolicy: Never
-                  securityContext:
-                      privileged: true
-                  ports:
-                      - containerPort: {{ .Values.global.monolith.service.port }}
-                  volumeMounts:
-                      - name: code
-                        mountPath: {{.Values.global.monolith.volumeHostPath}}
-                  env:
-                      - name: VAGRANT_ROOT
-                        value: {{.Values.global.monolith.volumeHostPath}}
-                      - name: COMPOSER_HOME
-                        value: {{.Values.global.monolith.volumeHostPath}}/.composer
-                      - name: MAGENTO_ROOT
-                        value: {{.Values.global.monolith.volumeHostPath}}/magento
-                      - name: MAGENTO_ROOT_HOST
-                        value: {{.Values.global.monolith.volumeHostPath}}/magento
-                      - name: VAGRANT_ROOT_HOST
-                        value: {{.Values.global.monolith.volumeHostPath}}
-                      - name: IS_WINDOWS_HOST
-                        value: "0"
-                - name: {{ .Chart.Name }}-xdebug
-                  image: magento2-monolith:dev-xdebug
-                  imagePullPolicy: Never
-                  securityContext:
-                        privileged: true
-                  ports:
-                      - containerPort: {{ .Values.xdebugService.port }}
-                  volumeMounts:
-                      - name: code
-                        mountPath: {{.Values.global.monolith.volumeHostPath}}
-                  env:
-                      - name: VAGRANT_ROOT
-                        value: {{.Values.global.monolith.volumeHostPath}}
-                      - name: COMPOSER_HOME
-                        value: {{.Values.global.monolith.volumeHostPath}}/.composer
-                      - name: MAGENTO_ROOT
-                        value: {{.Values.global.monolith.volumeHostPath}}/magento
-                      - name: MAGENTO_ROOT_HOST
-                        value: {{.Values.global.monolith.volumeHostPath}}/magento
-                      - name: VAGRANT_ROOT_HOST
-                        value: {{.Values.global.monolith.volumeHostPath}}
-                      - name: IS_WINDOWS_HOST
-                        value: "0"
-                - name: nginx
-                  image: nginx:1.9
-                  securityContext:
-                      privileged: true
-                  volumeMounts:
-                      - name: code
-                        mountPath: {{.Values.global.monolith.volumeHostPath}}
-                      - name: nginx-config-volume
-                        mountPath: /etc/nginx/nginx.conf
-                        subPath: nginx.conf
-            volumes:
-                - name: nginx-config-volume
-                  configMap:
-                      name: {{ template "magento.fullname" . }}-nginx-config
-                - name: code
-                {{- if .Values.global.persistence.nfs.enabled }}
-                  persistentVolumeClaim:
-                      claimName: {{ include "magento.fullname" . }}-claim
-                {{- else }}
-                  hostPath:
-                      path: {{.Values.global.monolith.volumeHostPath}}
-                {{- end }}
+            {{/*containers:*/}}
+                {{/*- name: {{ .Chart.Name }}*/}}
+                  {{/*image: magento2-monolith:dev*/}}
+                  {{/*imagePullPolicy: Never*/}}
+                  {{/*securityContext:*/}}
+                      {{/*privileged: true*/}}
+                  {{/*ports:*/}}
+                      {{/*- containerPort: {{ .Values.global.monolith.service.port }}*/}}
+                  {{/*volumeMounts:*/}}
+                      {{/*- name: code*/}}
+                        {{/*mountPath: {{.Values.global.monolith.volumeHostPath}}*/}}
+                  {{/*env:*/}}
+                      {{/*- name: VAGRANT_ROOT*/}}
+                        {{/*value: {{.Values.global.monolith.volumeHostPath}}*/}}
+                      {{/*- name: COMPOSER_HOME*/}}
+                        {{/*value: {{.Values.global.monolith.volumeHostPath}}/.composer*/}}
+                      {{/*- name: MAGENTO_ROOT*/}}
+                        {{/*value: {{.Values.global.monolith.volumeHostPath}}/magento*/}}
+                      {{/*- name: MAGENTO_ROOT_HOST*/}}
+                        {{/*value: {{.Values.global.monolith.volumeHostPath}}/magento*/}}
+                      {{/*- name: VAGRANT_ROOT_HOST*/}}
+                        {{/*value: {{.Values.global.monolith.volumeHostPath}}*/}}
+                      {{/*- name: IS_WINDOWS_HOST*/}}
+                        {{/*value: "0"*/}}
+                {{/*- name: {{ .Chart.Name }}-xdebug*/}}
+                  {{/*image: magento2-monolith:dev-xdebug*/}}
+                  {{/*imagePullPolicy: Never*/}}
+                  {{/*securityContext:*/}}
+                        {{/*privileged: true*/}}
+                  {{/*ports:*/}}
+                      {{/*- containerPort: {{ .Values.xdebugService.port }}*/}}
+                  {{/*volumeMounts:*/}}
+                      {{/*- name: code*/}}
+                        {{/*mountPath: {{.Values.global.monolith.volumeHostPath}}*/}}
+                  {{/*env:*/}}
+                      {{/*- name: VAGRANT_ROOT*/}}
+                        {{/*value: {{.Values.global.monolith.volumeHostPath}}*/}}
+                      {{/*- name: COMPOSER_HOME*/}}
+                        {{/*value: {{.Values.global.monolith.volumeHostPath}}/.composer*/}}
+                      {{/*- name: MAGENTO_ROOT*/}}
+                        {{/*value: {{.Values.global.monolith.volumeHostPath}}/magento*/}}
+                      {{/*- name: MAGENTO_ROOT_HOST*/}}
+                        {{/*value: {{.Values.global.monolith.volumeHostPath}}/magento*/}}
+                      {{/*- name: VAGRANT_ROOT_HOST*/}}
+                        {{/*value: {{.Values.global.monolith.volumeHostPath}}*/}}
+                      {{/*- name: IS_WINDOWS_HOST*/}}
+                        {{/*value: "0"*/}}
+                {{/*- name: nginx*/}}
+                  {{/*image: nginx:1.9*/}}
+                  {{/*securityContext:*/}}
+                      {{/*privileged: true*/}}
+                  {{/*volumeMounts:*/}}
+                      {{/*- name: code*/}}
+                        {{/*mountPath: {{.Values.global.monolith.volumeHostPath}}*/}}
+                      {{/*- name: nginx-config-volume*/}}
+                        {{/*mountPath: /etc/nginx/nginx.conf*/}}
+                        {{/*subPath: nginx.conf*/}}
+            {{/*volumes:*/}}
+                {{/*- name: nginx-config-volume*/}}
+                  {{/*configMap:*/}}
+                      {{/*name: {{ template "magento.fullname" . }}-nginx-config*/}}
+                {{/*- name: code*/}}
+                {{/*{{- if .Values.global.persistence.nfs.enabled }}*/}}
+                  {{/*persistentVolumeClaim:*/}}
+                      {{/*claimName: {{ include "magento.fullname" . }}-claim*/}}
+                {{/*{{- else }}*/}}
+                  {{/*hostPath:*/}}
+                      {{/*path: {{.Values.global.monolith.volumeHostPath}}*/}}
+                {{/*{{- end }}*/}}

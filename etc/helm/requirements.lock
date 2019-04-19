@@ -1,12 +1,15 @@
 dependencies:
 - name: mysql
   repository: https://kubernetes-charts.storage.googleapis.com
-  version: 0.9.2
+  version: 0.15.0
 - name: redis
   repository: https://kubernetes-charts.storage.googleapis.com
-  version: 5.0.0
+  version: 6.4.5
 - name: rabbitmq
   repository: https://kubernetes-charts.storage.googleapis.com
-  version: 3.6.3
-digest: sha256:c75abdd584e0aa2ac7d476f1641aa9fe1f18a9526114a0b5a075266ee62fb47f
-generated: 2019-01-31T20:07:53.996726-06:00
+  version: 5.5.0
+- name: elasticsearch
+  repository: https://kubernetes-charts.storage.googleapis.com
+  version: 1.25.0
+digest: sha256:68254e7e03c0ce73eaff6f3640ffd52d0060a7a9185c9b30e43e240e5e0cb013
+generated: 2019-04-19T10:31:30.863008-05:00

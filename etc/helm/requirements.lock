@@ -8,8 +8,5 @@ dependencies:
 - name: rabbitmq
   repository: https://kubernetes-charts.storage.googleapis.com
   version: 5.5.0
-- name: elasticsearch
-  repository: https://kubernetes-charts.storage.googleapis.com
-  version: 1.25.0
-digest: sha256:68254e7e03c0ce73eaff6f3640ffd52d0060a7a9185c9b30e43e240e5e0cb013
-generated: 2019-04-19T10:31:30.863008-05:00
+digest: sha256:2428faed51dea6700c0757f1d8eead45fceef38e53118784dfdbf6f6904c4707
+generated: 2019-04-19T11:26:34.142996-05:00

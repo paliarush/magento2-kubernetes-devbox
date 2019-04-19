@@ -9,7 +9,7 @@ dependencies:
   repository: https://kubernetes-charts.storage.googleapis.com
   version: 5.5.0
 - name: elasticsearch
-  repository: https://kubernetes-charts.storage.googleapis.com
-  version: 1.21.3
-digest: sha256:44979a8dd564a200c7229806bea5195632103b4bb31836518871eab4151b2855
-generated: 2019-04-19T12:08:49.121213-05:00
+  repository: https://helm.elastic.co
+  version: 6.6.2-alpha1
+digest: sha256:93fa889fe8d8577a194d2854ddcd6b99706de3e5875de4410be1587646b167b8
+generated: 2019-04-19T14:47:36.384096-05:00

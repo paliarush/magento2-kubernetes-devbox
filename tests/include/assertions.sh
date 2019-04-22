@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+source ./../../scripts/functions.sh
+
 ## Assertion groups
 
 function executeBasicCommonAssertions()
@@ -292,11 +294,12 @@ function assertElasticSearchEnabled()
     echo "## assertElasticSearchEnabled" >>${current_log_file_path}
 
     cd "${vagrant_dir}"
-    elasticSearchHealth="$(vagrant ssh -c 'curl -i http://elasticsearch:9200/_cluster/health')"
+
+    elasticSearchHealth="$(executeInMagento2Container bash -- 'curl -i http://elasticsearch:9200/_cluster/health')"
     assertTrue "ElasticSearch server is down:
         ${elasticSearchHealth}" '[[ ${elasticSearchHealth} =~ \"status\":\"(green|yellow)\" ]]'
 
-    listOfIndexes="$(vagrant ssh -c 'curl -i http://elasticsearch:9200/_cat/indices?v')"
+    listOfIndexes="$(executeInMagento2Container bash -- 'curl -i http://elasticsearch:9200/_cat/indices?v')"
     assertTrue "Products index is not available in ElasticSearch:
         ${listOfIndexes}" '[[ ${listOfIndexes} =~ magento2_product ]]'
 

@@ -292,11 +292,11 @@ function assertElasticSearchEnabled()
     echo "## assertElasticSearchEnabled" >>${current_log_file_path}
 
     cd "${vagrant_dir}"
-    elasticSearchHealth="$(vagrant ssh -c 'curl -i http://127.0.0.1:9200/_cluster/health')"
+    elasticSearchHealth="$(vagrant ssh -c 'curl -i http://elasticsearch:9200/_cluster/health')"
     assertTrue "ElasticSearch server is down:
         ${elasticSearchHealth}" '[[ ${elasticSearchHealth} =~ \"status\":\"(green|yellow)\" ]]'
 
-    listOfIndexes="$(vagrant ssh -c 'curl -i http://127.0.0.1:9200/_cat/indices?v')"
+    listOfIndexes="$(vagrant ssh -c 'curl -i http://elasticsearch:9200/_cat/indices?v')"
     assertTrue "Products index is not available in ElasticSearch:
         ${listOfIndexes}" '[[ ${listOfIndexes} =~ magento2_product ]]'
 

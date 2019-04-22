@@ -1,6 +1,8 @@
 #! /usr/bin/env bash
 
-source ./../../scripts/functions.sh
+cd "$(dirname "${BASH_SOURCE[0]}")/../.." && vagrant_dir=$PWD
+
+source "${vagrant_dir}/scripts/functions.sh"
 
 ## Assertion groups
 

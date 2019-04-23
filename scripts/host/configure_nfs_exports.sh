@@ -14,6 +14,12 @@ if [[ ${debug_vagrant_project} -eq 1 ]]; then
     set -x
 fi
 
+nfs_enabled="$(bash "${vagrant_dir}/scripts/get_config_value.sh" "guest_use_nfs")"
+if [[ ${nfs_enabled} -eq 0 ]]; then
+    status "Skipping NFS configuration per config.yaml"
+    exit 0
+fi
+
 userId=$(id -u)
 if [[ ${userId} -eq 0 ]]; then
     error "${vagrant_dir}/scripts/host/configure_nfs_exports.sh MUST NOT be run with sudo. Run it from unprivileged user and enter password when prompted."

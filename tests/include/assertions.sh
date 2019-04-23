@@ -1,7 +1,5 @@
 #! /usr/bin/env bash
 
-source "${vagrant_dir}/scripts/functions.sh"
-
 ## Assertion groups
 
 function executeBasicCommonAssertions()

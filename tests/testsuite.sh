@@ -10,6 +10,7 @@ source include/global_variables.sh
 source include/configuration.sh
 source include/helpers.sh
 source include/assertions.sh
+source ./../scripts/functions.sh
 
 ## Setup and tear down
 

@@ -11,9 +11,9 @@ source include/configuration.sh
 source include/helpers.sh
 source include/assertions.sh
 
-original_dir="$(pwd)"
+original_vagrant_dir="${vagrant_dir}"
 source ./../scripts/functions.sh
-cd ${original_dir}
+vagrant_dir=${original_vagrant_dir}
 
 ## Setup and tear down
 

@@ -10,7 +10,10 @@ source include/global_variables.sh
 source include/configuration.sh
 source include/helpers.sh
 source include/assertions.sh
+
+original_dir="$(pwd)"
 source ./../scripts/functions.sh
+cd ${original_dir}
 
 ## Setup and tear down
 

@@ -14,6 +14,7 @@ source include/assertions.sh
 original_vagrant_dir="${vagrant_dir}"
 source ./../scripts/functions.sh
 vagrant_dir=${original_vagrant_dir}
+cd ${tests_dir}
 
 ## Setup and tear down
 

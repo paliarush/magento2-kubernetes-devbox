@@ -12,9 +12,9 @@ dependencies:
   appVersion: "3.7.14"
   version: "5.5.0"
 - name: elasticsearch
-  repository: "https://helm.elastic.co"
+  repository: "@stable"
   appVersion: "6.4.2"
-  version: "6.4.2"
+  version: "1.13.3"
 - name: checkout
   repository: file://./charts/
   version: 0.1.0

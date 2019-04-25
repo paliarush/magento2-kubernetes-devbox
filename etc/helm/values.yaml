@@ -87,30 +87,21 @@ rabbitmq:
     password: 123123q
 
 elasticsearch:
-#  replicas: 1
-#  minimumMasterNodes: 1
+  appVersion: "6.1.4"
+  image:
+    tag: "6.1.4"
+  cluster:
+    env:
+      MINIMUM_MASTER_NODES: "1"
+  client:
+    replicas: 1
+  master:
+    replicas: 1
+    persistence:
+      size: "100M"
 
-#  imageTag: "6.1.4"
-
-  # Permit co-located instances for solitary minikube virtual machines.
-  antiAffinity: "soft"
-
-  # Shrink default JVM heap.
-  esJavaOpts: "-Xmx128m -Xms128m"
-
-  # Allocate smaller chunks of memory per pod.
-  resources:
-    requests:
-      cpu: "100m"
-      memory: "512M"
-    limits:
-      cpu: "1000m"
-      memory: "512M"
-
-  # Request smaller persistent volumes.
-  volumeClaimTemplate:
-    accessModes: [ "ReadWriteOnce" ]
-    storageClassName: "standard"
-    resources:
-      requests:
-        storage: 100M
+  data:
+    replicas: 1
+    heapSize: "100M"
+    persistence:
+      size: "100M"

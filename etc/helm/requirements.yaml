@@ -13,8 +13,8 @@ dependencies:
   version: "5.5.0"
 - name: elasticsearch
   repository: "https://helm.elastic.co"
-  appVersion: "6.6.2"
-  version: "6.6.2-alpha1"
+  appVersion: "6.4.2"
+  version: "6.4.2"
 - name: checkout
   repository: file://./charts/
   version: 0.1.0

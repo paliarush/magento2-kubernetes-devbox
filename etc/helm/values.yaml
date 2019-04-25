@@ -87,10 +87,10 @@ rabbitmq:
     password: 123123q
 
 elasticsearch:
-  replicas: 1
-  minimumMasterNodes: 1
+#  replicas: 1
+#  minimumMasterNodes: 1
 
-  imageTag: "6.1.4"
+#  imageTag: "6.1.4"
 
   # Permit co-located instances for solitary minikube virtual machines.
   antiAffinity: "soft"

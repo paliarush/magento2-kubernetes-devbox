@@ -33,20 +33,3 @@ spec:
     app: redis
     role: master
     tier: backend
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: magento2-elasticsearch
-  labels:
-    service: elasticsearch
-spec:
-  clusterIP: None
-  ports:
-    - port: 9200
-      name: serving
-    - port: 9300
-      name: node-to-node
-  selector:
-    service: elasticsearch
-

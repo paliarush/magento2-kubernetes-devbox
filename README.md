@@ -63,6 +63,7 @@ If you never used Kubernetes before, read the [Kubernetes Docs](https://kubernet
 
 The software listed below should be available in [PATH](https://en.wikipedia.org/wiki/PATH_\(variable\)) (except for PHP Storm).
 
+- [Docker](https://docs.docker.com/docker-for-mac/install/)
 - [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/)
 - [Helm](https://docs.helm.sh/using_helm/#installing-helm)
 - [VirtualBox](https://www.virtualbox.org/wiki/Downloads)

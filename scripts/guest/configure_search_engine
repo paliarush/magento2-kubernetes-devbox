@@ -16,11 +16,11 @@ search_engine="$(bash "${vagrant_dir}/scripts/get_config_value.sh" "environment_
 if [[ ${search_engine} == "elasticsearch" ]]; then
     status "Configuring ElasticSearch search engine"
     "${VAGRANT_ROOT}/scripts/guest/update_magento_config" 'catalog/search/engine' 'elasticsearch6'
-    "${VAGRANT_ROOT}/scripts/guest/update_magento_config" 'catalog/search/elasticsearch_server_hostname' 'elasticsearch-master'
-    "${VAGRANT_ROOT}/scripts/guest/update_magento_config" 'catalog/search/elasticsearch_server_port' '9200'
-    "${VAGRANT_ROOT}/scripts/guest/update_magento_config" 'catalog/search/elasticsearch_index_prefix' 'magento2'
-    "${VAGRANT_ROOT}/scripts/guest/update_magento_config" 'catalog/search/elasticsearch_enable_auth' '0'
-    "${VAGRANT_ROOT}/scripts/guest/update_magento_config" 'catalog/search/elasticsearch_server_timeout' '15'
+    "${VAGRANT_ROOT}/scripts/guest/update_magento_config" 'catalog/search/elasticsearch6_server_hostname' 'elasticsearch-master'
+    "${VAGRANT_ROOT}/scripts/guest/update_magento_config" 'catalog/search/elasticsearch6_server_port' '9200'
+    "${VAGRANT_ROOT}/scripts/guest/update_magento_config" 'catalog/search/elasticsearch6_index_prefix' 'magento2'
+    "${VAGRANT_ROOT}/scripts/guest/update_magento_config" 'catalog/search/elasticsearch6_enable_auth' '0'
+    "${VAGRANT_ROOT}/scripts/guest/update_magento_config" 'catalog/search/elasticsearch6_server_timeout' '15'
 elif [[ ${search_engine} == "mysql" ]]; then
     status "Configuring MySQL search engine"
     "${VAGRANT_ROOT}/scripts/guest/update_magento_config" 'catalog/search/engine' 'mysql'

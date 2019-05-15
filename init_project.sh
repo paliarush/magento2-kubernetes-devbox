@@ -56,11 +56,13 @@ function checkoutSourceCodeFromGit()
 
         cp -r "${magento_ce_dir}" "${magento_ce_dir}-nested"
         mv "${magento_ce_dir}-nested" "${magento_ce_dir}/magento"
+        rm -rf "${magento_ce_dir}/app/code/Magento"
+        ls "${magento_ce_dir}/app/code"
+        rm -rf "${magento_ce_dir}/lib/internal/Magento"
+        ls "${magento_ce_dir}/lib/internal"
         php_executable="$(bash "${devbox_dir}/scripts/host/get_path_to_php.sh")"
         # TODO: Move to the guest
         "${php_executable}" "${devbox_dir}/scripts/modularity-refactoring-tools/extract-ui-modules.php" "${magento_ce_dir}/magento/app/code/Magento"
-        rm -rf "${magento_ce_dir}/app/code/Magento/*"
-        rm -rf "${magento_ce_dir}/lib/internal/Magento/*"
         "${php_executable}" "${devbox_dir}/scripts/modularity-refactoring-tools/prepare-composer-json.php" "${magento_ce_dir}/composer.json" "admin"
     fi
 }

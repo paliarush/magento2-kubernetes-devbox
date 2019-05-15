@@ -63,6 +63,7 @@ $additionalPackages = [
     'magento/module-asynchronous-operations-ui' => '*',
 ];
 
+// TODO: Path must be parameterized
 $pathTypeConfig = [
     "minimum-stability" => "dev",
     'repositories' => [

@@ -23,4 +23,4 @@ Should be able to install packages, Magento and login to admin.
 5. `rm -rf magento/lib/internal/Magento/*`
 6. `php prepare-composer-json.php magento/composer.json admin`
 7. `cd magento`
-8. `composer install`
+8. `composer update`

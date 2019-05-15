@@ -50,7 +50,7 @@ else
     fi
 fi
 
-bash "${devbox_dir}/scripts/guest/composer.sh" install 2> >(logError)
+bash "${devbox_dir}/scripts/guest/composer.sh" update 2> >(logError)
 
 if [[ ${upgrade_only} -eq 1 ]]; then
     # TODO: Eliminate duplication with m-switch-to-ce

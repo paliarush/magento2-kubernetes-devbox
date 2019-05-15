@@ -51,7 +51,7 @@ else
     fi
 fi
 
-bash "${devbox_dir}/scripts/guest/composer.sh" install 2> >(logError)
+bash "${devbox_dir}/scripts/guest/composer.sh" update 2> >(logError)
 
 if [[ ${upgrade_only} -eq 1 ]]; then
     chmod a+x "${MAGENTO_ROOT}/bin/magento" 2> >(logError)

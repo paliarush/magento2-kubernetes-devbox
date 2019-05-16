@@ -111,12 +111,15 @@ $rootComposerJsonData = json_decode($rootComposerJsonContent, true);
 
 $addToRequire = [];
 foreach ($rootComposerJsonData['replace'] as $moduleName => $version) {
-    if (strpos($moduleName, '-' . $instance) !== false) {
+    if (preg_match('/-' . $instance . '$/', $moduleName)) {
         $addToRequire[$moduleName] = '*';
         unset($rootComposerJsonData['replace'][$moduleName]);
         unset($rootComposerJsonData['replace'][str_replace('-' . $instance, '', $moduleName)]);
     }
-    if (strpos($moduleName, 'magento/') === 0) {
+    if (strpos($moduleName, 'magento/') === 0
+        && strpos($moduleName, 'magento/theme') === false
+        && strpos($moduleName, 'magento/language') === false
+    ) {
         unset($rootComposerJsonData['replace'][$moduleName]);
     }
 }

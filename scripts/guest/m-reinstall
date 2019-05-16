@@ -34,11 +34,11 @@ setupOptions[base_url]="http://${magento_host_name}/"
 setupOptions[admin_lastname]='Admin'
 setupOptions[admin_firstname]='Admin'
 setupOptions[admin_email]='admin@example.com'
-setupOptions[amqp_host]='magento2-rabbitmq'
-setupOptions[amqp_port]='5672'
-setupOptions[amqp_user]='admin'
-setupOptions[amqp_password]='123123q'
-setupOptions[amqp_virtualhost]='/'
+#setupOptions[amqp_host]='magento2-rabbitmq'
+#setupOptions[amqp_port]='5672'
+#setupOptions[amqp_user]='admin'
+#setupOptions[amqp_password]='123123q'
+#setupOptions[amqp_virtualhost]='/'
 
 #if [[ ${is_windows_host} == 1 ]] || [[ ${use_nfs} == 0 ]]; then
 #    sudo chown -R devbox:devbox ${MAGENTO_ROOT}

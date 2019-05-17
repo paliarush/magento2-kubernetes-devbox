@@ -63,7 +63,7 @@ function checkoutSourceCodeFromGit()
         php_executable="$(bash "${devbox_dir}/scripts/host/get_path_to_php.sh")"
         # TODO: Move to the guest
         "${php_executable}" "${devbox_dir}/scripts/modularity-refactoring-tools/extract-ui-modules.php" "${magento_ce_dir}/magento/app/code/Magento"
-        "${php_executable}" "${devbox_dir}/scripts/modularity-refactoring-tools/prepare-composer-json.php" "${magento_ce_dir}/composer.json" "admin"
+        "${php_executable}" "${devbox_dir}/scripts/modularity-refactoring-tools/prepare-composer-json.php" "${magento_ce_dir}/composer.json" "admin-ui"
         bash "${devbox_dir}/m-composer" "install"
         bash "${devbox_dir}/m-composer" "update"
     fi

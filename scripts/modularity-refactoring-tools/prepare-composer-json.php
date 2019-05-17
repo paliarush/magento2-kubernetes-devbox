@@ -90,7 +90,7 @@ $pathTypeConfig = [
     ]
 ];
 
-$allowedInstances = ['admin', 'ui', 'webapi'];
+$allowedInstances = ['admin-ui', 'ui', 'webapi'];
 
 $composerJsonPath = $argv[1];
 

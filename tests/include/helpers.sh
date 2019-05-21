@@ -97,6 +97,7 @@ function deployDevboxProject()
     cd "${devbox_dir}"
     sudo bash "${devbox_dir}/scripts/host/configure_nfs_exports.sh"
 #    bash init_project.sh -fc 2> >(logAndEcho) | {
+    bash init_project.sh -fc
 #      while IFS= read -r line
 #      do
 #        logAndEcho "${line}"

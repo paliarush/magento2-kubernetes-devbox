@@ -140,7 +140,7 @@ if [[ ${generate_basic_data} != 0 ]]; then
 fi
 
 status "Checking if Magento frontend is accessible at '${setupOptions[base_url]}'"
-magento_home_page_content="$(curl -sL ${setupOptions[base_url]})"
+magento_home_page_content="$(curl -sL ${setupOptions[base_url]}${setupOptions[admin_frontname]})"
 pattern="All rights reserved."
 if [[ ${magento_home_page_content} =~ ${pattern} ]]; then
 

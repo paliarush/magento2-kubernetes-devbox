@@ -96,14 +96,14 @@ function deployDevboxProject()
     echo "## deployDevboxProject" >>${current_log_file_path}
     cd "${devbox_dir}"
     sudo bash "${devbox_dir}/scripts/host/configure_nfs_exports.sh"
-    bash init_project.sh -fc 2> >(logAndEcho) | {
-      while IFS= read -r line
-      do
-        logAndEcho "${line}"
-        lastline="${line}"
-      done
-      logAndEcho "${lastline}"
-    }
+#    bash init_project.sh -fc 2> >(logAndEcho) | {
+#      while IFS= read -r line
+#      do
+#        logAndEcho "${line}"
+#        lastline="${line}"
+#      done
+#      logAndEcho "${lastline}"
+#    }
 }
 
 function stashMagentoCodebase()

@@ -32,7 +32,7 @@ use_nfs="$(bash "${devbox_dir}/scripts/get_config_value.sh" "guest_use_nfs")"
 
 status "Deploying cluster, it may take several minutes"
 
-cd "${devbox_dir}/etc/helm/magento-kubernetes-devbox" && helm upgrade \
+cd "${devbox_dir}/etc/helm/magento-kubernetes-devbox" && helm install \
     --values values.yaml \
     --wait \
     --set global.persistence.nfs.serverIp="${nfs_server_ip}" \

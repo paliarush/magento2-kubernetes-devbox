@@ -46,6 +46,8 @@ before_script:
   - while sleep 540; do echo "=====[ $SECONDS seconds still running ]====="; done &
 
 after_script:
+  - ls
+  - pwd
   - sudo kubectl describe pods
   - sudo kubectl describe deployments
   - sudo kubectl get pv,pvc

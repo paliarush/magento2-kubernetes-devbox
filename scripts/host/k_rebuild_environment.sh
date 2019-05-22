@@ -13,8 +13,8 @@ cd "${devbox_dir}/scripts" && eval $(minikube docker-env) && docker build -t mag
 
 
 # TODO: Delete does not work when no releases created yet
-cd "${devbox_dir}/etc/helm"
-bash "${devbox_dir}/scripts/host/helm_delete_wait.sh" magento2
+#cd "${devbox_dir}/etc/helm/magento-kubernetes-devbox"
+#bash "${devbox_dir}/scripts/host/helm_delete_wait.sh" magento2
 
 # TODO: Need to make sure all resources have been successfully deleted before the attempt of recreating them
 #sleep 20
@@ -32,7 +32,7 @@ use_nfs="$(bash "${devbox_dir}/scripts/get_config_value.sh" "guest_use_nfs")"
 
 status "Deploying cluster, it may take several minutes"
 
-cd "${devbox_dir}/etc/helm" && helm install \
+cd "${devbox_dir}/etc/helm/magento-kubernetes-devbox" && helm upgrade \
     --values values.yaml \
     --wait \
     --set global.persistence.nfs.serverIp="${nfs_server_ip}" \

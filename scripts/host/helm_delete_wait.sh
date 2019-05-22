@@ -4,7 +4,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")/../.." && devbox_dir=$PWD
 
 source "${devbox_dir}/scripts/functions.sh"
 
-cd "${devbox_dir}/etc/helm"
+cd "${devbox_dir}/etc/helm/magento-kubernetes-devbox"
 set +e
 
 kinds=( Service Deployment Pod Secret ConfigMap PersistentVolumeClaim PersistentVolume )

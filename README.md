@@ -290,15 +290,15 @@ Not available yet.
 ### Accessing PHP and other config files
 
 The following configuration files are used by default:
-- [NGINX](etc/helm/templates/configmap.yaml)
+- [NGINX](etc/helm/magento-kubernetes-devbox/templates/configmap.yaml)
 - PHP-FPM: [ini](scripts/etc/php-fpm.ini), [conf](scripts/etc/php-fpm.conf)
 - [xDebug](scripts/etc/php-xdebug.ini)
 - [Dockerfile for monolith base image](scripts/Dockerfile)
 - [Actually applied Dockerfile for monolith with customizations](etc/docker/monolith/Dockerfile)
 - [Actually applied Dockerfile for monolith with xDebug and customizations](etc/docker/monolith-with-xdebug/Dockerfile)
-- [Kubernetes config for Monolith](etc/helm/templates/magento2-deployment.yaml)
-- [Kubernetes Helm variables](etc/helm/values.yaml)
-<!--- [Configs for Checkout service](etc/helm/charts/checkout)-->
+- [Kubernetes config for Monolith](etc/helm/magento-kubernetes-devbox/templates/magento2-deployment.yaml)
+- [Kubernetes Helm variables](etc/helm/magento-kubernetes-devbox/values.yaml)
+<!--- [Configs for Checkout service](etc/helm/magento-kubernetes-devbox/charts/checkout)-->
 <!--It is possible to view/modify majority of guest machine config files directly from IDE on the host. They will be accessible in [etc/guest](etc/guest) directory only when guest machine is running. The list of accessible configs includes: PHP, Apache, Mysql, Varnish, RabbitMQ.
 Do not edit any symlinks using PhpStorm because it may break your installation.
 
@@ -348,7 +348,7 @@ Use the following commands to enable/disable varnish <!--without reinstalling Ma
 
 You can also set `use_varnish: 1` in [config.yaml](etc/config.yaml.dist) to use varnish. Changes will be applied on `init_project.sh -f`.
 
-The VCL content can be found in [configmap.yaml](etc/helm/templates/configmap.yaml).
+The VCL content can be found in [configmap.yaml](etc/helm/magento-kubernetes-devbox/magento-kubernetes-devbox/templates/configmap.yaml).
 
 ### Activating ElasticSearch
 

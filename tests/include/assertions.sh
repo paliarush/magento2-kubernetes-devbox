@@ -5,15 +5,15 @@
 function executeBasicCommonAssertions()
 {
     # Make sure Magento was installed and is accessible
-#    assertMagentoInstalledSuccessfully
-#    assertMagentoFrontendAccessible
-#    assertMagentoCliWorks
+    assertMagentoInstalledSuccessfully
+    assertMagentoFrontendAccessible
+    assertMagentoCliWorks
 }
 
 function executeExtendedCommonAssertions()
 {
-#    assertTestsConfigured
-#    assertDebugConfigurationWork
+    assertTestsConfigured
+    assertDebugConfigurationWork
     # TODO: Implement functionality and uncomment assertions
 #    assertPhpStormConfigured
 
@@ -23,8 +23,8 @@ function executeExtendedCommonAssertions()
 #    assertMagentoFrontendAccessible
 
     # Make sure Magento reinstall script works
-#    assertMagentoReinstallWorks
-#    assertMagentoFrontendAccessible
+    assertMagentoReinstallWorks
+    assertMagentoFrontendAccessible
 
 #    assertEmailLoggingWorks
 
@@ -33,12 +33,12 @@ function executeExtendedCommonAssertions()
 #    assertVarnishDisablingWorks
 
     # Test search
-#    createSimpleProduct
-#    assertSearchWorks
-#
-#    assertElasticSearchEnabled
-#    assertElasticSearchDisablingWorks
-#    assertElasticSearchEnablingWorks
+    createSimpleProduct
+    assertSearchWorks
+
+    assertElasticSearchEnabled
+    assertElasticSearchDisablingWorks
+    assertElasticSearchEnablingWorks
 }
 
 ## Assertions

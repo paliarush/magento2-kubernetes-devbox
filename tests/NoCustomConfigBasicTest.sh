@@ -57,10 +57,10 @@ function testNoCustomConfigBasicTest()
     current_codebase="ce"
     installEnvironment
 #    assertVarnishDisabled
-    executeBasicCommonAssertions
-    assertMagentoEditionIsCE
-    assertCeSampleDataNotInstalled
-    assertRedisCacheIsEnabled
+#    executeBasicCommonAssertions
+#    assertMagentoEditionIsCE
+#    assertCeSampleDataNotInstalled
+#    assertRedisCacheIsEnabled
 }
 
 ## Call and Run all Tests

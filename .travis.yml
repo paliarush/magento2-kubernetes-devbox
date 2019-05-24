@@ -41,7 +41,7 @@ before_script:
   - cat "${TRAVIS_BUILD_DIR}/scripts/host/k_rebuild_environment.sh"
   - cat "${TRAVIS_BUILD_DIR}/init_project.sh"
   - cat "${TRAVIS_BUILD_DIR}/etc/config.yaml.dist"
-  - if [[ -d "${TRAVIS_BUILD_DIR}/tests/_files/" ]]; then find "${TRAVIS_BUILD_DIR}/tests/_files" -type f -exec cat {} \;; fi
+  - if [[ -d "${TRAVIS_BUILD_DIR}/tests/_files/" ]]; then find "${TRAVIS_BUILD_DIR}/tests/_files" -type f -exec basename {} \; -exec cat {} \;; fi
   - cat "${TRAVIS_BUILD_DIR}/scripts/host/get_path_to_php.sh"
   - while sleep 540; do echo "=====[ $SECONDS seconds still running ]====="; done &
 
@@ -52,8 +52,8 @@ after_script:
   - sudo kubectl logs -l app=magento -c monolith-xdebug
   - sudo kubectl logs -l app=magento -c monolith
   - sudo kubectl logs -l app=magento -c nginx
-  - if [[ -d "${TRAVIS_BUILD_DIR}/logs/" ]]; then find "${TRAVIS_BUILD_DIR}/logs" -type f -exec cat {} \;; fi
+  - if [[ -d "${TRAVIS_BUILD_DIR}/logs/" ]]; then find "${TRAVIS_BUILD_DIR}/logs" -type f -exec basename {} \; -exec cat {} \;; fi
   - cat "${TRAVIS_BUILD_DIR}/tests/tmp/test/current-test.log"
-  - if [[ -d "${TRAVIS_BUILD_DIR}/tests/tmp/test/magento2-devbox/log/" ]]; then find "${TRAVIS_BUILD_DIR}/tests/tmp/test/magento2-devbox/log" -type f -exec cat {} \;; fi
+  - if [[ -d "${TRAVIS_BUILD_DIR}/tests/tmp/test/magento2-devbox/log/" ]]; then find "${TRAVIS_BUILD_DIR}/tests/tmp/test/magento2-devbox/log" -type f -exec basename {} \; -exec cat {} \;; fi
   - sudo cat /etc/exports
   - kill %1

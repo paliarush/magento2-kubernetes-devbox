@@ -32,17 +32,21 @@ data:
 
       server {
         listen "{{ .Values.global.monolith.service.nginxPort }}";
-
+        rewrite_log on;
+        add_header X-Magento-Service Admin always;
         server_name _;
         set $MAGE_ROOT {{.Values.global.monolith.volumeHostPath}}/magento;
+        add_header X-Uri-Before-Rewrites "$uri" always;
+        add_header X-Uri-After-Admin-Rewrite "$uri" always;
         {{- include "common.nginx.config" . | nindent 8 }}
+        add_header X-Uri-Final-Rewrite "$uri" always;
       }
 
       server {
         listen "{{ .Values.global.monolith.service.nginxPortStorefront }}";
-
+        add_header X-Magento-Service Storefront always;
         server_name _;
-        set $MAGE_ROOT {{.Values.global.monolith.volumeHostPath}}/magento-storefront;
+        set $MAGE_ROOT {{.Values.global.monolith.volumeHostPath}}/magento;
         {{- include "common.nginx.config" . | nindent 8 }}
       }
     }

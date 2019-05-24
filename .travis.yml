@@ -41,7 +41,7 @@ before_script:
   - cat "${TRAVIS_BUILD_DIR}/scripts/host/k_rebuild_environment.sh"
   - cat "${TRAVIS_BUILD_DIR}/init_project.sh"
   - cat "${TRAVIS_BUILD_DIR}/etc/config.yaml.dist"
-  - if [[ -d "${TRAVIS_BUILD_DIR}/tests/etc/" ]]; then find "${TRAVIS_BUILD_DIR}/tests/etc" -maxdepth 1 -type f -exec basename {} \; -exec cat {} \;; fi
+#  - if [[ -d "${TRAVIS_BUILD_DIR}/tests/etc/" ]]; then find "${TRAVIS_BUILD_DIR}/tests/etc" -maxdepth 1 -type f -exec basename {} \; -exec cat {} \;; fi
   - cat "${TRAVIS_BUILD_DIR}/scripts/host/get_path_to_php.sh"
   - while sleep 540; do echo "=====[ $SECONDS seconds still running ]====="; done &
 

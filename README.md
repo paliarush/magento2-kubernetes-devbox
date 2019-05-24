@@ -50,7 +50,7 @@ The environment for Magento EE development is also configured.
 The [project initialization script](init_project.sh) configures a complete development environment:
 
 <!-- 1. Adds some missing software on the host -->
- 1. Configures all software necessary for Magento 2: Nginx, PHP 7.x, MySQL 5.6, Git, Composer, XDebug<!--, Rabbit MQ, Varnish-->
+ 1. Configures all software necessary for Magento 2: Nginx, PHP 7.x, MySQL 5.6, Git, Composer, XDebug, Rabbit MQ, Varnish
  1. Installs Magento 2 from Git repositories or Composer packages (can be configured via `checkout_source_from` option in [etc/config.yaml](etc/config.yaml.dist))
 <!-- 1. Configures PHP Storm project (partially at the moment)-->
 <!-- 1. Installs NodeJS, NPM, Grunt and Gulp for front end development
@@ -154,7 +154,7 @@ Upon a successful installation, you'll see the location and URL of the newly-ins
   - ![](docs/images/linux-icon.png)![](docs/images/osx-icon.png) On Mac and \*nix hosts: the same as on host
 - MySQL DB host: 
   - inside the container: `localhost`
-  - remotely: `<ip-from-config-yaml>` with port `30306`. Related configuration can be found in values.yaml inside magento2-devbox/etc/helm
+  - remotely: `<ip-from-config-yaml>`
 - MySQL DB name: `magento`, `magento_integration_tests`
 - MySQL DB user/password: `root:123123q`
 
@@ -224,7 +224,7 @@ Upgrade can be performed instead of re-installation using `-u` flag.
 Make sure that `ce_sample_data` and `ee_sample_data` are defined in [config.yaml](etc/config.yaml.dist) and point CE and optionally EE sample data repositories.
 During initial project setup or during `bash init_project.sh -fc` (with `-fc` project will be re-created from scratch), sample data repositories willl be checked out to `magento2-devbox/magento/magento2ce-sample-data` and `magento2-devbox/magento/magento2ee-sample-data`.
 
-To install Magento with sample data set `install_sample_data` in [config.yaml](etc/config.yaml.dist) to `1` and run `./m-switch-to-ce -f` or `./m-switch-to-ee -f`, depending on the edition to be installed. To disable sample data, set this option to `0` and force-switch to necessary edition (using the same commands).
+To install Magento with sample data specify/uncomment sample data repository link at `repository_url_additional_repositories` in [config.yaml](etc/config.yaml.dist) and run `./m-switch-to-ce -f` or `./m-switch-to-ee -f`, depending on the edition to be installed. To disable sample data, comment out additional repositories and force-switch to necessary edition (using the same commands).
 
 ### Basic data generation
 
@@ -290,15 +290,15 @@ Not available yet.
 ### Accessing PHP and other config files
 
 The following configuration files are used by default:
-- [NGINX](etc/helm/templates/configmap.yaml)
+- [NGINX](etc/helm/magento-kubernetes-devbox/templates/configmap.yaml)
 - PHP-FPM: [ini](scripts/etc/php-fpm.ini), [conf](scripts/etc/php-fpm.conf)
 - [xDebug](scripts/etc/php-xdebug.ini)
 - [Dockerfile for monolith base image](scripts/Dockerfile)
 - [Actually applied Dockerfile for monolith with customizations](etc/docker/monolith/Dockerfile)
 - [Actually applied Dockerfile for monolith with xDebug and customizations](etc/docker/monolith-with-xdebug/Dockerfile)
-- [Kubernetes config for Monolith](etc/helm/templates/magento2-deployment.yaml)
-- [Kubernetes Helm variables](etc/helm/values.yaml)
-<!--- [Configs for Checkout service](etc/helm/charts/checkout)-->
+- [Kubernetes config for Monolith](etc/helm/magento-kubernetes-devbox/templates/magento2-deployment.yaml)
+- [Kubernetes Helm variables](etc/helm/magento-kubernetes-devbox/values.yaml)
+<!--- [Configs for Checkout service](etc/helm/magento-kubernetes-devbox/charts/checkout)-->
 <!--It is possible to view/modify majority of guest machine config files directly from IDE on the host. They will be accessible in [etc/guest](etc/guest) directory only when guest machine is running. The list of accessible configs includes: PHP, Apache, Mysql, Varnish, RabbitMQ.
 Do not edit any symlinks using PhpStorm because it may break your installation.
 
@@ -344,13 +344,11 @@ PHP version will be applied after "devbox reload".
 
 ### Activating Varnish
 
-Not available yet.
-<!--Set `use_varnish: 1` to use varnish along with apache in [config.yaml](etc/config.yaml.dist). Changes will be applied on `m-reinstall`.
-It will use default file etc/magento2_default_varnish.vcl.dist generated from a Magento 2.1 instance. Magento 2.2+ supports additional Varnish features and you may need to provide custom version of VCL to enable them.
-Varnish Version: 4.1
+Use the following commands to enable/disable varnish <!--without reinstalling Magento-->: `m-varnish disable` or `m-varnish enable`.
 
-Use the following commands to enable/disable varnish without reinstalling Magento: `m-varnish disable` or `m-varnish enable`.
--->
+You can also set `use_varnish: 1` in [config.yaml](etc/config.yaml.dist) to use varnish. Changes will be applied on `init_project.sh -f`.
+
+The VCL content can be found in [configmap.yaml](etc/helm/magento-kubernetes-devbox/magento-kubernetes-devbox/templates/configmap.yaml).
 
 ### Activating ElasticSearch
 
@@ -431,3 +429,4 @@ bash ./<test-name>.sh
  1. Be careful if your OS is case-insensitive, NFS might break the symlinks if you cd into the wrong casing and you power the devbox up. Just be sure to cd in to the casing the directory was originally created as.
  1. Cannot run unit tests from PHPStorm on Magento 2.2, see possible solution [here](https://github.com/paliarush/magento2-vagrant-for-developers/issues/167)
  1. [Permission denied (publickey)](https://github.com/paliarush/magento2-vagrant-for-developers/issues/165)
+ 1. If you get [minikube time out error restarting cluster](https://github.com/kubernetes/minikube/issues/3843) while initializing project, run `minikube stop && minikube delete && ./init_project.sh`.

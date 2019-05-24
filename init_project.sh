@@ -34,6 +34,7 @@ repository_url_ee="$(bash "${devbox_dir}/scripts/get_config_value.sh" "repositor
 composer_project_name="$(bash "${devbox_dir}/scripts/get_config_value.sh" "composer_project_name")"
 composer_project_url="$(bash "${devbox_dir}/scripts/get_config_value.sh" "composer_project_url")"
 checkout_source_from="$(bash "${devbox_dir}/scripts/get_config_value.sh" "checkout_source_from")"
+use_git_shallow_clone="$(bash "${devbox_dir}/scripts/get_config_value.sh" "repository_url_shallow_clone")"
 
 function checkoutSourceCodeFromGit()
 {
@@ -46,17 +47,13 @@ function checkoutSourceCodeFromGit()
 #        fi
 
         initMagentoCeGit
-        initMagentoCeSampleGit
 
         # By default EE repository is not specified and EE project is not checked out
         if [[ -n "${repository_url_ee}" ]]; then
             initMagentoEeGit
         fi
-        # By default EE sample data repository is not specified and EE project is not checked out
-        repository_url_ee_sample_data="$(bash "${devbox_dir}/scripts/get_config_value.sh" "repository_url_ee_sample_data")"
-        if [ -n "${repository_url_ee_sample_data}" ]; then
-            initMagentoEeSampleGit
-        fi
+
+        initAdditionalGitRepositories
     fi
 }
 
@@ -74,6 +71,21 @@ function initMagentoCeSampleGit()
 {
     repository_url_ce_sample_data="$(bash "${devbox_dir}/scripts/get_config_value.sh" "repository_url_ce_sample_data")"
     initGitRepository ${repository_url_ce_sample_data} "CE sample data" "${magento_ce_sample_data_dir}"
+}
+
+function initAdditionalGitRepositories()
+{
+    repository_url_ce_sample_data="$(bash "${devbox_dir}/scripts/get_config_value.sh" "repository_url_ce_sample_data")"
+
+    additional_repository_index=1
+    current_additional_repo_name="$(bash "${devbox_dir}/scripts/get_config_value.sh" "repository_url_additional_repositories_${additional_repository_index}")"
+    while [[ ! -z "${current_additional_repo_name}" ]]
+    do
+        initGitRepository "${current_additional_repo_name}" "${current_additional_repo_name}"
+
+        ((additional_repository_index++))
+        current_additional_repo_name="$(bash "${devbox_dir}/scripts/get_config_value.sh" "repository_url_additional_repositories_${additional_repository_index}")"
+    done
 }
 
 function initMagentoEeSampleGit()
@@ -100,13 +112,25 @@ function initGitRepository()
     fi
 
     status "Checking out ${repository_name} repository"
-    git clone ${repo} "${directory}" 2> >(logError) > >(log)
+    if [[ -z "${directory}" ]]; then
+        pattern=".*\/(.*)\.git"
+        if [[ ! ${repository_url} =~ ${pattern} ]]; then
+            error "Specified repository URL is invalid: '${repository_url}'"
+            exit 1
+        fi
+        directory="${magento_ce_dir}/${BASH_REMATCH[1]}"
+    fi
 
-    if [[ -n ${branch} ]]; then
-        status "Checking out branch ${branch} of ${repository_name} repository"
-        cd "${directory}"
-        git fetch 2> >(logError) > >(log)
-        git checkout ${branch} 2> >(log) > >(log)
+    if [[ ${use_git_shallow_clone} -eq 1 ]] ; then
+        git clone --depth 1 ${repo} "${directory}" 2> >(logError) > >(log)
+    else
+        git clone ${repo} "${directory}" 2> >(logError) > >(log)
+        if [[ -n ${branch} ]]; then
+            status "Checking out branch ${branch} of ${repository_name} repository"
+            cd "${directory}"
+            git fetch 2> >(logError) > >(log)
+            git checkout ${branch} 2> >(log) > >(log)
+        fi
     fi
     cd "${devbox_dir}"
 }
@@ -216,11 +240,11 @@ cd "${devbox_dir}"
 
 if [[ $(isMinikubeRunning) -eq 0 ]]; then
     status "Starting minikube"
-    minikube start --cpus=2 --memory=4096
+    minikube start -v=0 --cpus=2 --memory=4096
     minikube addons enable ingress
     minikube addons enable heapster
     # hanged in some cases todo
-#    minikube start --cache-images --cpus=2 --memory=4096 2> >(logError) | {
+#    minikube start -v=0 --cache-images --cpus=2 --memory=4096 2> >(logError) | {
 #      while IFS= read -r line
 #      do
 #        filterDevboxOutput "${line}"

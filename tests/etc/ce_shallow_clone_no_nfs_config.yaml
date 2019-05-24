@@ -15,13 +15,16 @@ repository_url:
 
   # [To apply changes: init_project.sh -fc]
   # git@github.com:magento/magento2ce.git OR custom one. Use '::' to specify a specific branch, e.g: git@github.com:magento/magento2.git::2.1
-  ce: "git@github.com:magento/magento2.git::2.3"
+  ce: "git@github.com:magento/magento2.git"
   # git@github.com:magento/magento2ee.git OR custom one
   ee: ""
-  # can be replaced with custom repository. Use '::' to specify a specific branch, e.g: git@github.com:magento/magento2-sample-data.git::2.1-develop
-  ce_sample_data: "git@github.com:magento/magento2-sample-data.git::2.3"
-  # git@github.com:magento/magento2-sample-data-ee.git OR custom one
-  ee_sample_data: ""
+  additional_repositories:
+    # [To apply changes: m-switch-to-ce -f OR m-switch-to-ee -f]
+    # - "git@github.com:magento/magento2-sample-data.git"
+    # - "git@github.com:magento/magento2-sample-data-ee.git"
+    # - "git@github.com:magento/magento2b2b.git"
+  # If set to 1, shallow clone will be used to speed up the project initialization
+  shallow_clone: 1
 
 guest:
   # [To apply changes: init_project.sh -f] NFS will be used for folder synchronization on *nix and OSX hosts by default.
@@ -40,13 +43,11 @@ environment:
   php_version: "7.0"
   composer_prefer_source: 0
   # [To apply changes: m-reinstall OR m-varnish enable/disable]
-  use_varnish: 0
+  use_varnish: 1
   # [To apply changes: m-reinstall] Possible values: mysql, elasticsearch
-  search_engine: "mysql"
+  search_engine: "elasticsearch"
 
 magento:
-  # [To apply changes: m-switch-to-ce -f OR m-switch-to-ee -f]
-  install_sample_data: 1
   # [To apply changes: m-switch-to-ce -f OR m-switch-to-ee -f] Generate customer (customer@example.com:123123qQ), category, simple product, configurable product after successful Magento installation
   generate_basic_data: 1
   # [To apply changes: init_project.sh -f]

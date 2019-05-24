@@ -32,18 +32,8 @@ use_nfs="$(bash "${devbox_dir}/scripts/get_config_value.sh" "guest_use_nfs")"
 
 status "Deploying cluster, it may take several minutes"
 
-#cd "${devbox_dir}/etc/helm" && helm install \
-#    --name magento2 \
-#    --values values.yaml \
-#    --wait \
-#    --set global.persistence.nfs.serverIp="${nfs_server_ip}" \
-#    --set global.monolith.volumeHostPath="${devbox_dir}" \
-#    --set global.persistence.nfs.enabled="$(if [[ ${use_nfs} == "1" ]]; then echo "true"; else echo "false"; fi)" \
-#    --set global.caching.varnish.enabled="$(if [[ ${use_varnish} == "1" ]]; then echo "true"; else echo "false"; fi)" \
-#    --set global.checkout.enabled="${enable_checkout}" \
-#    --set global.checkout.volumeHostPath="${devbox_dir}" .
-
-cd "${devbox_dir}/etc/helm" && helm upgrade \
+cd "${devbox_dir}/etc/helm" && helm install \
+    --name magento2 \
     --values values.yaml \
     --wait \
     --set global.persistence.nfs.serverIp="${nfs_server_ip}" \
@@ -51,7 +41,17 @@ cd "${devbox_dir}/etc/helm" && helm upgrade \
     --set global.persistence.nfs.enabled="$(if [[ ${use_nfs} == "1" ]]; then echo "true"; else echo "false"; fi)" \
     --set global.caching.varnish.enabled="$(if [[ ${use_varnish} == "1" ]]; then echo "true"; else echo "false"; fi)" \
     --set global.checkout.enabled="${enable_checkout}" \
-    --set global.checkout.volumeHostPath="${devbox_dir}" magento2 .
+    --set global.checkout.volumeHostPath="${devbox_dir}" .
+
+#cd "${devbox_dir}/etc/helm" && helm upgrade \
+#    --values values.yaml \
+#    --wait \
+#    --set global.persistence.nfs.serverIp="${nfs_server_ip}" \
+#    --set global.monolith.volumeHostPath="${devbox_dir}" \
+#    --set global.persistence.nfs.enabled="$(if [[ ${use_nfs} == "1" ]]; then echo "true"; else echo "false"; fi)" \
+#    --set global.caching.varnish.enabled="$(if [[ ${use_varnish} == "1" ]]; then echo "true"; else echo "false"; fi)" \
+#    --set global.checkout.enabled="${enable_checkout}" \
+#    --set global.checkout.volumeHostPath="${devbox_dir}" magento2 .
 
 # TODO: Waiting for containers to initialize before proceeding
 #waitForKubernetesPodToRun 'tiller-deploy'

@@ -6,7 +6,7 @@ cd "${devbox_dir}"
 sudo ./scripts/host/configure_nfs_exports.sh
 cp ./tests/include/configuration.sh.dist ./tests/include/configuration.sh
 sed -i "s|git@github.com:|https://github.com/|g" ./etc/config.yaml.dist
-sed -i "s|git@github.com:|https://github.com/|g" ./tests/_files/*
+sed -i "s|git@github.com:|https://github.com/|g" ./tests/etc/*
 sed -i "s|php_executable=\"php\"|php_executable=\"/home/travis/.phpenv/shims/php\"|g" ./scripts/host/get_path_to_php.sh
 # TODO: Make configurable and enable for specific tests
 # sed -i "s|git clone|git clone --depth 1 |g" ./init_project.sh

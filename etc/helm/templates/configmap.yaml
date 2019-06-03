@@ -98,7 +98,7 @@ data:
 
         location /admin/ {
           try_files $uri $uri/ /index.php$is_args$args;
-          set $MAGE_ROOT {{.Values.global.monolith.volumeHostPath}}/magento2;
+          set $MAGE_ROOT {{.Values.global.monolith.volumeHostPath}}/magento-admin-ui;
         }
 
         location /pub/ {

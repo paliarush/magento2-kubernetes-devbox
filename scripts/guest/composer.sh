@@ -26,4 +26,11 @@ fi
 status "composer --no-interaction "$@""
 composer --no-interaction "$@" 2> >(log) > >(log)
 
+if [[ -d "${DEVBOX_ROOT}/magento-admin-ui" ]]; then
+    cd "${DEVBOX_ROOT}/magento-admin-ui"
+fi
+
+status "composer --no-interaction "$@""
+composer --no-interaction "$@" 2> >(log) > >(log)
+
 decrementNestingLevel

@@ -93,6 +93,12 @@ data:
 
         location / {
             try_files $uri $uri/ /index.php$is_args$args;
+            set $MAGE_ROOT {{.Values.global.monolith.volumeHostPath}}/magento;
+        }
+
+        location /admin/ {
+          try_files $uri $uri/ /index.php$is_args$args;
+          set $MAGE_ROOT {{.Values.global.monolith.volumeHostPath}}/magento2;
         }
 
         location /pub/ {

@@ -60,11 +60,20 @@ function checkoutSourceCodeFromGit()
         ls "${magento_ce_dir}/app/code"
         rm -rf "${magento_ce_dir}/lib/internal/Magento"
         ls "${magento_ce_dir}/lib/internal"
+
+        cp -r "${magento_ce_dir}" "${magento_ce_dir}/../magento-admin-ui"
+
         php_executable="$(bash "${devbox_dir}/scripts/host/get_path_to_php.sh")"
         # TODO: Move to the guest
         "${php_executable}" "${devbox_dir}/scripts/modularity-refactoring-tools/extract-ui-modules.php" "${magento_ce_dir}/magento/app/code/Magento"
         cp "${magento_ce_dir}/magento/composer.json" "${magento_ce_dir}/"
-        "${php_executable}" "${devbox_dir}/scripts/modularity-refactoring-tools/prepare-composer-json.php" "${magento_ce_dir}/composer.json" "admin-ui"
+        "${php_executable}" "${devbox_dir}/scripts/modularity-refactoring-tools/prepare-composer-json.php" "${magento_ce_dir}/composer.json" "ui"
+        bash "${devbox_dir}/m-composer" "update --lock"
+
+        # Prepare admin UI instance
+        "${php_executable}" "${devbox_dir}/scripts/modularity-refactoring-tools/extract-ui-modules.php" "${magento_ce_dir}/../magento-admin-ui/magento/app/code/Magento"
+        cp "${magento_ce_dir}/../magento-admin-ui/magento/composer.json" "${magento_ce_dir}/../magento-admin-ui/"
+        "${php_executable}" "${devbox_dir}/scripts/modularity-refactoring-tools/prepare-composer-json.php" "${magento_ce_dir}/../magento-admin-ui/composer.json" "admin-ui"
         bash "${devbox_dir}/m-composer" "update --lock"
     fi
 }

@@ -7,7 +7,6 @@ metadata:
     kubernetes.io/ingress.allow-http: "true"
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/rewrite-target: /
     ingress.appscode.com/hsts: "false"
 spec:
   rules:
@@ -20,11 +19,11 @@ spec:
           {{/*servicePort: {{ .Values.global.monolith.service.port }}*/}}
 
 ## Multi-service installation
-      - path: /admin-ui
+      - path: /admin-ui/
         backend:
           serviceName: {{ include "magento.fullname" . }}
           servicePort: {{ .Values.global.monolith.service.port }}
-      - path: /storefront
+      - path: /storefront/
         backend:
           serviceName: {{ include "magento.fullname" . }}-storefront
           servicePort: {{ .Values.global.monolith.service.port }}

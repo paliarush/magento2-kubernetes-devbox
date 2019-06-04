@@ -44,6 +44,7 @@ data:
 
       server {
         listen "{{ .Values.global.monolith.service.nginxPortStorefront }}";
+        rewrite_log on;
         add_header X-Magento-Service Storefront always;
         server_name _;
         set $MAGE_ROOT {{.Values.global.monolith.volumeHostPath}}/magento;

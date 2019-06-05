@@ -99,6 +99,8 @@ $additionalPackages = [
         'magento/module-reports-webapi' => '*',
         'magento/module-store-webapi' => '*',
         'magento/module-sales-rule-webapi' => '*',
+        'magento/module-message-queue' => '*',
+        'magento/framework-message-queue' => '*',
     ],
     'webapi' => [],
 ];

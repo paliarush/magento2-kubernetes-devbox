@@ -12,8 +12,26 @@ spec:
   type: {{ .Values.global.monolith.service.type }}
   ports:
     - port: {{ .Values.global.monolith.service.port }}
-      targetPort: {{ if .Values.global.caching.varnish.enabled }}{{ .Values.global.monolith.service.varnishPort }}{{ else }}{{ .Values.global.monolith.service.nginxPort }}{{ end }}
-      nodePort: {{ .Values.global.monolith.service.nodePort }}
+      targetPort: {{ .Values.global.monolith.service.nginxPort }}
+  selector:
+    app.kubernetes.io/name: {{ include "magento.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "magento.fullname" . }}-storefront
+  labels:
+    app: {{ include "magento.name" . }}
+    app.kubernetes.io/name: {{ include "magento.name" . }}
+    helm.sh/chart: {{ include "magento.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  type: {{ .Values.global.monolith.service.type }}
+  ports:
+    - port: {{ .Values.global.monolith.service.port }}
+      targetPort: {{ if .Values.global.caching.varnish.enabled }}{{ .Values.global.monolith.service.varnishPort }}{{ else }}{{ .Values.global.monolith.service.nginxPortStorefront }}{{ end }}
   selector:
     app.kubernetes.io/name: {{ include "magento.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}

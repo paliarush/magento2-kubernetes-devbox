@@ -43,6 +43,7 @@ global:
       nodePort: 30301
       port: 8050
       nginxPort: 8001
+      nginxPortStorefront: 8321
       phpFpmPort: 9001
       phpFpmXdebugPort: 9002
       varnishPort: 6081

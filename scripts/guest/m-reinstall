@@ -91,21 +91,26 @@ install_cmd="./bin/magento setup:install \
     --use-rewrites=1"
 
 # Configure Rabbit MQ
-if [[ -d "${MAGENTO_ROOT}/app/code/Magento/MessageQueue" ]] || [[ -d "${MAGENTO_ROOT}/vendor/magento/module-message-queue" ]]; then
-    install_cmd="${install_cmd} \
-    --amqp-host=${setupOptions[amqp_host]} \
-    --amqp-port=${setupOptions[amqp_port]} \
-    --amqp-user=${setupOptions[amqp_user]} \
-    --amqp-virtualhost=${setupOptions[amqp_virtualhost]} \
-    --amqp-ssl=false \
-    --amqp-ssl-options=[] \
-    --amqp-password=${setupOptions[amqp_password]}"
-fi
+#if [[ -d "${MAGENTO_ROOT}/app/code/Magento/MessageQueue" ]] || [[ -d "${MAGENTO_ROOT}/vendor/magento/module-message-queue" ]]; then
+#    install_cmd="${install_cmd} \
+#    --amqp-host=${setupOptions[amqp_host]} \
+#    --amqp-port=${setupOptions[amqp_port]} \
+#    --amqp-user=${setupOptions[amqp_user]} \
+#    --amqp-virtualhost=${setupOptions[amqp_virtualhost]} \
+#    --amqp-ssl=false \
+#    --amqp-ssl-options=[] \
+#    --amqp-password=${setupOptions[amqp_password]}"
+#fi
 
 # TODO: Permission denied
 #sudo chmod +x bin/magento
 status "${install_cmd}"
-php ${install_cmd} 2> >(logError) > >(log)
+#php ${install_cmd} 2> >(logError) > >(log)
+php ${install_cmd}
+
+cd "${MAGENTO_ROOT}/../magento-admin-ui"
+php "./bin/magento setup:upgrade"
+
 # Comment out the line above and uncomment the one below to debug Magento Setup script
 # php -d xdebug.remote_autostart=1 ${install_cmd} 2> >(logError) > >(log)
 
@@ -124,7 +129,7 @@ bash "${devbox_dir}/scripts/guest/configure_varnish" -f
 # TODO: Remove
 #if [[ ${is_windows_host} == 1 ]] || [[ ${use_nfs} == 0 ]]; then
 #    status "Changing ownership of "${MAGENTO_ROOT}" to devbox:devbox"
-#    sudo chown -R devbox:devbox ${MAGENTO_ROOT}
+#    sudo chown -R devbox:devbox ${MAGENTO_ROOT}tests/include/helpers.sh
 #fi
 
 bash "${DEVBOX_ROOT}/scripts/guest/configure_search_engine"
@@ -139,7 +144,7 @@ if [[ ${generate_basic_data} != 0 ]]; then
 fi
 
 status "Checking if Magento frontend is accessible at '${setupOptions[base_url]}'"
-magento_home_page_content="$(curl -sL ${setupOptions[base_url]})"
+magento_home_page_content="$(curl -sL ${setupOptions[base_url]}${setupOptions[admin_frontname]})"
 pattern="All rights reserved."
 if [[ ${magento_home_page_content} =~ ${pattern} ]]; then
 

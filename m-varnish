@@ -9,7 +9,7 @@ resetNestingLevel
 current_script_name=`basename "$0"`
 initLogFile ${current_script_name}
 
-debug_devbox_project="$(bash "${devbox_dir}/scripts/get_config_value.sh" "debug_devbox_project")"
+debug_devbox_project="$(bash "${devbox_dir}/scripts/get_env_config_value.sh" "debug_devbox_project")"
 if [[ ${debug_devbox_project} -eq 1 ]]; then
     set -x
 fi
@@ -18,7 +18,7 @@ arguments=$@
 cd "${devbox_dir}"
 executeInMagento2Container "${devbox_dir}/scripts/guest/m-varnish" -- ${arguments} 2> >(logError)
 
-bash "${devbox_dir}/k-rebuild-environment" 2> >(logError)
+bash "${devbox_dir}/k-upgrade-environment" 2> >(logError)
 
 # TODO: Remove when MySQL state is persisted between rebuilds
 bash "${devbox_dir}/m-reinstall" 2> >(logError)

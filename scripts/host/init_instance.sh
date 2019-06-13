@@ -7,10 +7,10 @@ source "${devbox_dir}/scripts/functions.sh"
 status "Initializing instance '$(getContext)'"
 incrementNestingLevel
 
-config_path="${devbox_dir}/etc/$(getContext).yaml"
+config_path="${devbox_dir}/etc/instance/$(getContext).yaml"
 
 if [[ ! -f "${config_path}" ]]; then
-    status "Initializing etc/$(getContext).yaml using defaults from etc/instance/config.yaml.dist"
+    status "Initializing etc/instance/$(getContext).yaml using defaults from etc/instance/config.yaml.dist"
     cp "${devbox_dir}/etc/instance/config.yaml.dist" "${config_path}"
 fi
 
@@ -203,7 +203,7 @@ if [[ ! -d ${magento_ce_dir} ]]; then
 fi
 
 monolith_ip="$(minikube service magento2-monolith --url | grep -oE '[0-9][^:]+' | head -1)"
-status "Saving Magento monolith container IP to etc/$(getContext).yaml (${monolith_ip})"
+status "Saving Magento monolith container IP to etc/instance/$(getContext).yaml (${monolith_ip})"
 sed -i.back "s|ip_address: \".*\"|ip_address: \"${monolith_ip}\"|g" "${config_path}"
 sed -i.back "s|host_name: \".*\"|host_name: \"magento.$(getContext)\"|g" "${config_path}"
 rm -f "${config_path}.back"

@@ -87,7 +87,7 @@ cd "${devbox_dir}"
 #if [[ $(isMinikubeInitialized) -eq 1 ]]; then
 #    warning "The project has already been initialized.
 #    To re-initialize the project add the '-f' flag (using just '-f' will not affect Magento codebase or PHP Storm settings).
-#    To delete Magento codebase and initialize it from scratch based on etc/$(getContext).yaml add '-c' flag.
+#    To delete Magento codebase and initialize it from scratch based on etc/instance/$(getContext).yaml add '-c' flag.
 #    To reconfigure PHP Storm add '-p' flag."
 #    exit 0
 #fi

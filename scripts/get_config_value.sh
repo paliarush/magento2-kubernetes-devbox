@@ -6,8 +6,8 @@ variable_name=$1
 
 # Read configs
 eval $(parse_yaml "${devbox_dir}/etc/instance/config.yaml.dist")
-if [[ -f "${devbox_dir}/etc/$(getContext).yaml" ]]; then
-    eval $(parse_yaml "${devbox_dir}/etc/$(getContext).yaml")
+if [[ -f "${devbox_dir}/etc/instance/$(getContext).yaml" ]]; then
+    eval $(parse_yaml "${devbox_dir}/etc/instance/$(getContext).yaml")
 fi
 
 echo ${!variable_name}

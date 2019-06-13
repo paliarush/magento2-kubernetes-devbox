@@ -14,7 +14,7 @@ if [[ $1 == "help" ]]; then
 fi
 
 # Check if user created $(getContext).yaml file
-if [[ ! -f ${devbox_dir}/etc/$(getContext).yaml ]]; then
+if [[ ! -f ${devbox_dir}/etc/instance/$(getContext).yaml ]]; then
     error "Please make sure you have create a $(getContext).yaml file copy from etc/instance/config.yaml.dist"
     decrementNestingLevel
     exit 1
@@ -22,10 +22,10 @@ fi
 
 if [[ $1 == "enable" ]]; then
     status "Enabling Varnish"
-    sed -ie "s/use_varnish:.*/use_varnish: 1/" ${devbox_dir}/etc/$(getContext).yaml
+    sed -ie "s/use_varnish:.*/use_varnish: 1/" ${devbox_dir}/etc/instance/$(getContext).yaml
 elif [[ $1 == "disable" ]]; then
     status "Disabling Varnish"
-    sed -ie "s/use_varnish:.*/use_varnish: 0/" ${devbox_dir}/etc/$(getContext).yaml
+    sed -ie "s/use_varnish:.*/use_varnish: 0/" ${devbox_dir}/etc/instance/$(getContext).yaml
 else
     error "Usage: ./m-varnish enable|disable"
     decrementNestingLevel

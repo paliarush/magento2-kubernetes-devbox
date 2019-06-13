@@ -14,7 +14,7 @@ if [[ ! -f "${DEVBOX_ROOT}/$(getContext)/bin/magento" ]]; then
     exit 1
 fi
 
-if [[ ! -f "${devbox_dir}/etc/$(getContext).yaml" ]]; then
+if [[ ! -f "${devbox_dir}/etc/instance/$(getContext).yaml" ]]; then
     error "Directory '${devbox_dir}/etc' was not mounted as expected by Devbox and is not accessible on the guest machine.
         Please make sure that Devbox is able to mount VirtualBox shared folders on your environment (see https://www.devboxup.com/docs/synced-folders/basic_usage.html ).
         Also remove any stale declarations from /etc/exports on the host."

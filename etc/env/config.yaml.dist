@@ -15,7 +15,7 @@ environment:
   php_version: "7.0"
   composer_prefer_source: 0
   # [To apply changes: m-reinstall OR m-varnish enable/disable]
-  use_varnish: 0
+  use_varnish: 1
   # [To apply changes: m-reinstall] Possible values: mysql, elasticsearch
   search_engine: "elasticsearch"
 

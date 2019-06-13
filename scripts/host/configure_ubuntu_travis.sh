@@ -3,7 +3,6 @@
 cd "$(dirname "${BASH_SOURCE[0]}")/../.." && devbox_dir=$PWD
 
 cd "${devbox_dir}"
-sudo ./scripts/host/configure_nfs_exports.sh
 cp ./tests/include/configuration.sh.dist ./tests/include/configuration.sh
 sed -i "s|git@github.com:|https://github.com/|g" ./etc/instance/config.yaml.dist
 find ./tests/_files/ -type f | xargs sed -i "s|git@github.com:|https://github.com/|g"

@@ -466,8 +466,8 @@ function assertDebugConfigurationWork()
     echo "## assertDebugOptionsWork" >>${current_log_file_path}
 
     cd "${devbox_dir}"
-    sed -i.back 's|magento_storefront: 0|magento_storefront: 1|g' "${devbox_dir}/etc/default.yaml" >>${current_log_file_path} 2>&1
-    sed -i.back 's|magento_admin: 0|magento_admin: 1|g' "${devbox_dir}/etc/default.yaml" >>${current_log_file_path} 2>&1
+    sed -i.back 's|magento_storefront: 0|magento_storefront: 1|g' "${devbox_dir}/etc/instance/default.yaml" >>${current_log_file_path} 2>&1
+    sed -i.back 's|magento_admin: 0|magento_admin: 1|g' "${devbox_dir}/etc/instance/default.yaml" >>${current_log_file_path} 2>&1
     bash m-clear-cache >>${current_log_file_path} 2>&1
 
     magento_home_page_content="$(curl -sL ${current_magento_base_url})"
@@ -478,8 +478,8 @@ function assertDebugConfigurationWork()
     pattern='Magento\\Backend\\Block\\Page\\Copyright'
     assertTrue "Admin panel debugging is not enabled. URL: '${current_magento_base_url}/admin'" '[[ ${magento_backend_login_page_content} =~ ${pattern} ]]'
 
-    sed -i.back 's|magento_storefront: 1|magento_storefront: 0|g' "${devbox_dir}/etc/default.yaml" >>${current_log_file_path} 2>&1
-    sed -i.back 's|magento_admin: 1|magento_admin: 0|g' "${devbox_dir}/etc/default.yaml" >>${current_log_file_path} 2>&1
+    sed -i.back 's|magento_storefront: 1|magento_storefront: 0|g' "${devbox_dir}/etc/instance/default.yaml" >>${current_log_file_path} 2>&1
+    sed -i.back 's|magento_admin: 1|magento_admin: 0|g' "${devbox_dir}/etc/instance/default.yaml" >>${current_log_file_path} 2>&1
     bash m-clear-cache >>${current_log_file_path} 2>&1
 
     magento_home_page_content="$(curl -sL ${current_magento_base_url})"

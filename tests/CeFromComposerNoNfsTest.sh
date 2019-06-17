@@ -53,12 +53,22 @@ See logs in ${logs_dir}"
 
 function testCeFromComposerNoNfs()
 {
-    current_config_name="ce_from_composer_no_nfs"
+    current_config_name="multi_instance_with_ce_from_composer_no_nfs"
     skip_codebase_stash=1
 
     installEnvironment
 
-    executeBasicCommonAssertions
+    # Second instance is the last installed
+    assertTrue "Unexpected context after installation. Actual context: '$(getContext)'; Expected context: 'second'" '[[ $(getContext) == "second" ]]'
+    assertMagentoEditionIsCE
+    assertCeSampleDataNotInstalled
+    assertRedisCacheIsEnabled
+
+    # Second instance assertions
+    assertSetContext "default"
+    current_magento_base_url="http://magento.default"
+    assertMagentoFrontendAccessible
+    assertMagentoCliWorks
     assertMagentoEditionIsCE
 
     assertRedisCacheIsEnabled

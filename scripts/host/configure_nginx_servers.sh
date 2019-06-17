@@ -15,6 +15,9 @@ if [[ ${debug_devbox_project} -eq 1 ]]; then
 fi
 
 nginx_servers_config_file="${devbox_dir}/etc/helm/templates/_nginx-servers.tpl"
+
+status "Regenerating '${nginx_servers_config_file}'"
+
 rm -f "${nginx_servers_config_file}"
 
 echo '{{- define "common.nginx.servers.config" -}}' >> "${nginx_servers_config_file}"

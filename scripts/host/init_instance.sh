@@ -184,9 +184,12 @@ fi
 cd "${devbox_dir}"
 
 status "Configuring kubernetes cluster on the minikube"
-# TODO: Optimize. Helm tiller must be initialized and started before environment configuration can begin
-helm init --wait
+## TODO: Optimize. Helm tiller must be initialized and started before environment configuration can begin
+#helm init --wait
 #waitForKubernetesPodToRun 'tiller-deploy'
+
+# TODO: Check if environment upgrade can be safely removed
+bash "${devbox_dir}/scripts/host/k_upgrade_environment.sh"
 
 if [[ ! -d ${magento_ce_dir} ]]; then
     if [[ "${checkout_source_from}" == "composer" ]]; then
@@ -206,10 +209,6 @@ sed -i.back "s|host_name: \".*\"|host_name: \"magento.$(getContext)\"|g" "${conf
 rm -f "${config_path}.back"
 
 bash "${devbox_dir}/scripts/host/configure_etc_hosts.sh"
-bash "${devbox_dir}/scripts/host/configure_nginx_servers.sh"
-
-# TODO: Check if environment upgrade can be safely removed
-bash "${devbox_dir}/scripts/host/k_upgrade_environment.sh"
 
 bash "${devbox_dir}/scripts/host/check_mounted_directories.sh"
 

@@ -209,6 +209,7 @@ sed -i.back "s|host_name: \".*\"|host_name: \"magento.$(getContext)\"|g" "${conf
 rm -f "${config_path}.back"
 
 bash "${devbox_dir}/scripts/host/configure_etc_hosts.sh"
+bash "${devbox_dir}/scripts/host/configure_nginx_servers.sh"
 
 bash "${devbox_dir}/scripts/host/check_mounted_directories.sh"
 

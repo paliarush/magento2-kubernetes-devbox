@@ -51,19 +51,16 @@ See logs in ${logs_dir}"
 
 ## Tests
 
-function testCeFromComposerNoNfs()
+function testNoCustomConfigBasic()
 {
-    current_config_name="ce_from_composer_no_nfs"
-    skip_codebase_stash=1
-
+    current_config_name="ce_shallow_clone_no_nfs"
+    current_codebase="ce"
     installEnvironment
-
+#    assertVarnishDisabled
     executeBasicCommonAssertions
     assertMagentoEditionIsCE
-
+    assertCeSampleDataNotInstalled
     assertRedisCacheIsEnabled
-
-    executeExtendedCommonAssertions
 }
 
 ## Call and Run all Tests

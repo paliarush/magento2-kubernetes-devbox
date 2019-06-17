@@ -188,9 +188,6 @@ status "Configuring kubernetes cluster on the minikube"
 helm init --wait
 #waitForKubernetesPodToRun 'tiller-deploy'
 
-# TODO: Check if environment upgrade can be safely removed
-bash "${devbox_dir}/scripts/host/k_upgrade_environment.sh"
-
 if [[ ! -d ${magento_ce_dir} ]]; then
     if [[ "${checkout_source_from}" == "composer" ]]; then
         composerCreateProject
@@ -210,6 +207,9 @@ rm -f "${config_path}.back"
 
 bash "${devbox_dir}/scripts/host/configure_etc_hosts.sh"
 bash "${devbox_dir}/scripts/host/configure_nginx_servers.sh"
+
+# TODO: Check if environment upgrade can be safely removed
+bash "${devbox_dir}/scripts/host/k_upgrade_environment.sh"
 
 bash "${devbox_dir}/scripts/host/check_mounted_directories.sh"
 

@@ -56,11 +56,11 @@ function testCeFromComposerNoNfs()
     current_config_name="multi_instance_with_ce_from_composer_no_nfs"
     skip_codebase_stash=1
 
-    installEnvironment
 
     # Second instance is the last installed
     setDevBoxContext "second"
     assertDevBoxContext "second"
+    installEnvironment
     current_magento_base_url="http://magento.second"
 
     assertMagentoEditionIsCE

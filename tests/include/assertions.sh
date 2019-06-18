@@ -523,13 +523,12 @@ function assertRedisCacheIsDisabled()
     assertTrue "Redis cache seems to be enabled since cache directory '${cache_directory}' was not created." '[[ -d ${cache_directory} ]]'
 }
 
-function assertSetContext()
+function assertDevBoxContext()
 {
-    echo "${blue}## assertContextSwitchWorks${regular}"
-    echo "## assertContextSwitchWorks" >>${current_log_file_path}
+    echo "${blue}## assertDevBoxContext${regular}"
+    echo "## assertDevBoxContext" >>${current_log_file_path}
 
     context=${1}
-    bash "${devbox_dir}/k-set-context" -- ${context} >>${current_log_file_path} 2>&1
 
     assertTrue "Context switching does not work. Actual context: '$(getContext)'; Expected context: '${context}'" '[[ $(getContext) == ${context} ]]'
 }

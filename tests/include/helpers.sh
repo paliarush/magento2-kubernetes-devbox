@@ -229,3 +229,12 @@ function logAndEcho() {
         echo "${input}" >> "${current_log_file_path}"
     fi
 }
+
+function setDevBoxContext()
+{
+    echo "${grey}## setDevBoxContext${regular}"
+    echo "## setDevBoxContext" >>${current_log_file_path}
+
+    context=${1}
+    bash "${devbox_dir}/k-set-context" -- ${context} >>${current_log_file_path} 2>&1
+}

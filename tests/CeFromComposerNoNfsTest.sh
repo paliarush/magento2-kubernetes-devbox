@@ -59,14 +59,19 @@ function testCeFromComposerNoNfs()
     installEnvironment
 
     # Second instance is the last installed
-    assertTrue "Unexpected context after installation. Actual context: '$(getContext)'; Expected context: 'second'" '[[ $(getContext) == "second" ]]'
+    setDevBoxContext "second"
+    assertDevBoxContext "second"
+    current_magento_base_url="http://magento.second"
+
     assertMagentoEditionIsCE
     assertCeSampleDataNotInstalled
     assertRedisCacheIsEnabled
 
-    # Second instance assertions
-    assertSetContext "default"
+    # Default instance assertions
+    setDevBoxContext "default"
+    assertDevBoxContext "default"
     current_magento_base_url="http://magento.default"
+
     assertMagentoFrontendAccessible
     assertMagentoCliWorks
     assertMagentoEditionIsCE

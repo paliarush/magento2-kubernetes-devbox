@@ -56,6 +56,9 @@ function testNoCustomConfigBasic()
     current_config_name="ce_shallow_clone_no_nfs"
     current_codebase="ce"
     installEnvironment
+
+    setDevBoxContext "default"
+
 #    assertVarnishDisabled
     executeBasicCommonAssertions
     assertMagentoEditionIsCE

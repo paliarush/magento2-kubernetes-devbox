@@ -56,6 +56,9 @@ function testEeLinking()
     current_config_name="ce_shallow_clone_no_nfs"
     current_codebase="ee"
     installEnvironment
+
+    setDevBoxContext "default"
+    
 #    assertVarnishDisabled
     executeBasicCommonAssertions
     assertMagentoEditionIsCE

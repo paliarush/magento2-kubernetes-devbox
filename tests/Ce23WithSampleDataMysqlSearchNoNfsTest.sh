@@ -58,6 +58,8 @@ function testCe23WithSampleDataMysqlSearchNoNfs()
 
     installEnvironment
 
+    setDevBoxContext "default"
+
     assertSourceCodeIsFromBranch "${devbox_dir}/$(getContext)" "2.3"
     assertSourceCodeIsFromBranch "${devbox_dir}/$(getContext)/magento2-sample-data" "2.3"
 

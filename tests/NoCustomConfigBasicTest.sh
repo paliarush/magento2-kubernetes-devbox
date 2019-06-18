@@ -55,8 +55,6 @@ function testNoCustomConfigBasic()
 {
     current_config_name="ce_shallow_clone_no_nfs"
     current_codebase="ce"
-    setDevBoxContext "default"
-
     installEnvironment
 #    assertVarnishDisabled
     executeBasicCommonAssertions

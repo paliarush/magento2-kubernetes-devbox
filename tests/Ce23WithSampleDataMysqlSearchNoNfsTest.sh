@@ -56,8 +56,6 @@ function testCe23WithSampleDataMysqlSearchNoNfs()
     current_config_name="ce23_with_sample_data_mysql_search_no_nfs"
     current_codebase="ce23_with_sample_data"
 
-    setDevBoxContext "default"
-
     installEnvironment
 
     assertSourceCodeIsFromBranch "${devbox_dir}/$(getContext)" "2.3"

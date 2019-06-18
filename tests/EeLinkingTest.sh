@@ -55,8 +55,6 @@ function testEeLinking()
 {
     current_config_name="ce_shallow_clone_no_nfs"
     current_codebase="ee"
-    setDevBoxContext "default"
-
     installEnvironment
 #    assertVarnishDisabled
     executeBasicCommonAssertions

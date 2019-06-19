@@ -61,6 +61,7 @@ function testMultiInstanceWithCeFromComposerNoNfs()
     # Second instance is the last installed
     assertDevBoxContext "second"
 
+    executeBasicCommonAssertions
     assertMagentoEditionIsCE
     assertCeSampleDataNotInstalled
     assertRedisCacheIsEnabled

@@ -2,20 +2,20 @@
 
 function installEnvironment()
 {
-    stashMagentoCodebase
+#    stashMagentoCodebase
     clearTestTmp
     downloadDevboxProject
-    unstashMagentoCodebase
+#    unstashMagentoCodebase
     configureDevboxProject
     deployDevboxProject
 }
 
 function installEnvironmentWithUpgrade()
 {
-    stashMagentoCodebase
+#    stashMagentoCodebase
     clearTestTmp
     downloadBaseVersionOfDevboxProject
-    unstashMagentoCodebase
+#    unstashMagentoCodebase
     configureDevboxProject
     deployDevboxProject
     upgradeDevboxProject
@@ -106,38 +106,38 @@ function deployDevboxProject()
     }
 }
 
-function stashMagentoCodebase()
-{
-    if [[ ${skip_codebase_stash} == 0 ]] && [[ -d "${devbox_dir}/$(getContext)" ]]; then
-        echo "${grey}## stashMagentoCodebase${regular}"
-        echo "## stashMagentoCodebase" >>${current_log_file_path}
-        magento_stash_dir="${magento_codebase_stash_dir}/${current_codebase}"
-        rm -rf "${magento_stash_dir}"
-        mkdir -p "${magento_stash_dir}"
-        mv "${devbox_dir}/$(getContext)" "${magento_stash_dir}/magento"
-        rm -rf "${magento_stash_dir}/magento/var/*"
-        rm -rf "${magento_stash_dir}/magento/vendor/*"
-        rm -rf "${magento_stash_dir}/magento/pub/static/*"
-        rm -f "${magento_stash_dir}/magento/app/etc/config.php"
-        rm -f "${magento_stash_dir}/magento/dev/tests/api-functional/soap.xml"
-        rm -f "${magento_stash_dir}/magento/dev/tests/api-functional/rest.xml"
-        rm -f "${magento_stash_dir}/magento/dev/tests/functional/phpunit.xml"
-        rm -f "${magento_stash_dir}/magento/dev/tests/functional/etc/config.xml"
-        rm -f "${magento_stash_dir}/magento/dev/tests/integration/phpunit.xml"
-        rm -f "${magento_stash_dir}/magento/dev/tests/integration/etc/install-config-mysql.php"
-        rm -f "${magento_stash_dir}/magento/dev/tests/unit/phpunit.xml"
-    fi
-}
-
-function unstashMagentoCodebase()
-{
-    magento_stash_dir="${magento_codebase_stash_dir}/${current_codebase}/magento"
-    if [[ ${skip_codebase_stash} == 0 ]] && [[ -d "${magento_stash_dir}" ]]; then
-        echo "${grey}## unstashMagentoCodebase${regular}"
-        echo "## unstashMagentoCodebase" >>${current_log_file_path}
-        mv "${magento_stash_dir}" "${devbox_dir}/$(getContext)"
-    fi
-}
+#function stashMagentoCodebase()
+#{
+#    if [[ ${skip_codebase_stash} == 0 ]] && [[ -d "${devbox_dir}/$(getContext)" ]]; then
+#        echo "${grey}## stashMagentoCodebase${regular}"
+#        echo "## stashMagentoCodebase" >>${current_log_file_path}
+#        magento_stash_dir="${magento_codebase_stash_dir}/${current_codebase}"
+#        rm -rf "${magento_stash_dir}"
+#        mkdir -p "${magento_stash_dir}"
+#        mv "${devbox_dir}/$(getContext)" "${magento_stash_dir}/magento"
+#        rm -rf "${magento_stash_dir}/magento/var/*"
+#        rm -rf "${magento_stash_dir}/magento/vendor/*"
+#        rm -rf "${magento_stash_dir}/magento/pub/static/*"
+#        rm -f "${magento_stash_dir}/magento/app/etc/config.php"
+#        rm -f "${magento_stash_dir}/magento/dev/tests/api-functional/soap.xml"
+#        rm -f "${magento_stash_dir}/magento/dev/tests/api-functional/rest.xml"
+#        rm -f "${magento_stash_dir}/magento/dev/tests/functional/phpunit.xml"
+#        rm -f "${magento_stash_dir}/magento/dev/tests/functional/etc/config.xml"
+#        rm -f "${magento_stash_dir}/magento/dev/tests/integration/phpunit.xml"
+#        rm -f "${magento_stash_dir}/magento/dev/tests/integration/etc/install-config-mysql.php"
+#        rm -f "${magento_stash_dir}/magento/dev/tests/unit/phpunit.xml"
+#    fi
+#}
+#
+#function unstashMagentoCodebase()
+#{
+#    magento_stash_dir="${magento_codebase_stash_dir}/${current_codebase}/magento"
+#    if [[ ${skip_codebase_stash} == 0 ]] && [[ -d "${magento_stash_dir}" ]]; then
+#        echo "${grey}## unstashMagentoCodebase${regular}"
+#        echo "## unstashMagentoCodebase" >>${current_log_file_path}
+#        mv "${magento_stash_dir}" "${devbox_dir}/$(getContext)"
+#    fi
+#}
 
 function hardReboot()
 {

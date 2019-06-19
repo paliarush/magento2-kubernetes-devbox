@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# devbox_dir must be defined in the calling script, this is needed for tests to work
+cd "$(dirname "${BASH_SOURCE[0]}")/.." && devbox_dir=$PWD
 
 source "${devbox_dir}/scripts/colors.sh"
 

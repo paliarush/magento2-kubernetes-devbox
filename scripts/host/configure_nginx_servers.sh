@@ -21,6 +21,8 @@ status "Regenerating '${nginx_servers_config_file}'"
 rm -f "${nginx_servers_config_file}"
 
 echo '{{- define "common.nginx.servers.config" -}}' >> "${nginx_servers_config_file}"
+echo '{{/* WARNING: Do not modify this file directly, it is auto-generated and any changes will be overwritten. */}}' > "${nginx_servers_config_file}"
+
 for instance_name in $(getInstanceList); do
     cat >> "${nginx_servers_config_file}" <<- LITERAL
 server {

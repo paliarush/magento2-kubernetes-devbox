@@ -46,7 +46,7 @@ See logs in ${logs_dir}"
 
 ## Tests
 
-function testCeFromComposerNoNfs()
+function testMultiInstanceWithCeFromComposerNoNfs()
 {
     current_config_name="multi_instance_with_ce_from_composer_no_nfs"
 #    skip_codebase_stash=1

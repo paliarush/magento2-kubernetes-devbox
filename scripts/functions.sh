@@ -300,7 +300,10 @@ function loginToPodContainer()
 
 function getContext()
 {
-    # TODO: Add safety checks
+#    if [[ ! -f "${context_file}" ]]; then
+#        echo "Context is not set. Use 'k-set-context <context-name>' to set it."
+#        exit 1
+#    fi
     cat "${context_file}"
 }
 

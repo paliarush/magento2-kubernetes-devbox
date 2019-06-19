@@ -5,6 +5,11 @@ source ./../../scripts/functions.sh
 devbox_dir=${original_devbox_dir}
 cd ${tests_dir}
 
+function getContext()
+{
+    bash "${devbox_dir}/k-get-context"
+}
+
 ## Assertion groups
 
 function executeBasicCommonAssertions()

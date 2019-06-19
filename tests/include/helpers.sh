@@ -108,13 +108,13 @@ function deployDevboxProject()
 
 #function stashMagentoCodebase()
 #{
-#    if [[ ${skip_codebase_stash} == 0 ]] && [[ -d "${devbox_dir}/$(getContext)" ]]; then
+#    if [[ ${skip_codebase_stash} == 0 ]] && [[ -d "${devbox_dir}/$(getDevBoxContext)" ]]; then
 #        echo "${grey}## stashMagentoCodebase${regular}"
 #        echo "## stashMagentoCodebase" >>${current_log_file_path}
 #        magento_stash_dir="${magento_codebase_stash_dir}/${current_codebase}"
 #        rm -rf "${magento_stash_dir}"
 #        mkdir -p "${magento_stash_dir}"
-#        mv "${devbox_dir}/$(getContext)" "${magento_stash_dir}/magento"
+#        mv "${devbox_dir}/$(getDevBoxContext)" "${magento_stash_dir}/magento"
 #        rm -rf "${magento_stash_dir}/magento/var/*"
 #        rm -rf "${magento_stash_dir}/magento/vendor/*"
 #        rm -rf "${magento_stash_dir}/magento/pub/static/*"
@@ -135,7 +135,7 @@ function deployDevboxProject()
 #    if [[ ${skip_codebase_stash} == 0 ]] && [[ -d "${magento_stash_dir}" ]]; then
 #        echo "${grey}## unstashMagentoCodebase${regular}"
 #        echo "## unstashMagentoCodebase" >>${current_log_file_path}
-#        mv "${magento_stash_dir}" "${devbox_dir}/$(getContext)"
+#        mv "${magento_stash_dir}" "${devbox_dir}/$(getDevBoxContext)"
 #    fi
 #}
 
@@ -213,9 +213,9 @@ function emulateEeRepoCloning()
     echo "${grey}## emulateEeDownloading${regular}"
     echo "## emulateEeDownloading" >>${current_log_file_path}
 
-    cp -r "${tests_dir}/_files/magento2ee" "${devbox_dir}/$(getContext)/"
-    cp "${devbox_dir}/$(getContext)/composer.lock" "${devbox_dir}/$(getContext)/magento2ee/composer.lock"
-    sed -i.back 's|Composer installer for Magento modules|Composer installer for Magento modules EE MARK FOR TESTS|g' "${devbox_dir}/$(getContext)/magento2ee/composer.lock" >>${current_log_file_path} 2>&1
+    cp -r "${tests_dir}/_files/magento2ee" "${devbox_dir}/$(getDevBoxContext)/"
+    cp "${devbox_dir}/$(getDevBoxContext)/composer.lock" "${devbox_dir}/$(getDevBoxContext)/magento2ee/composer.lock"
+    sed -i.back 's|Composer installer for Magento modules|Composer installer for Magento modules EE MARK FOR TESTS|g' "${devbox_dir}/$(getDevBoxContext)/magento2ee/composer.lock" >>${current_log_file_path} 2>&1
 }
 
 function logAndEcho() {
@@ -237,4 +237,10 @@ function setDevBoxContext()
 
     context=${1}
     bash "${devbox_dir}/k-set-context" -- ${context} >>${current_log_file_path} 2>&1
+}
+
+
+function getDevBoxContext()
+{
+    bash "${devbox_dir}/k-get-context"
 }

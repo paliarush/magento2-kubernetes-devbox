@@ -236,7 +236,7 @@ function setDevBoxContext()
     echo "## setDevBoxContext" >>${current_log_file_path}
 
     context=${1}
-    bash "${devbox_dir}/k-set-context" -- ${context} >>${current_log_file_path} 2>&1
+    bash "${devbox_dir}/k-set-context" ${context} >>${current_log_file_path} 2>&1
 }
 
 

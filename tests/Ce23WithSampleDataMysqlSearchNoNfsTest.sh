@@ -11,6 +11,11 @@ source include/configuration.sh
 source include/helpers.sh
 source include/assertions.sh
 
+original_devbox_dir="${devbox_dir}"
+source ./../scripts/functions.sh
+devbox_dir=${original_devbox_dir}
+cd ${tests_dir}
+
 ## Setup and tear down
 
 function oneTimeSetUp

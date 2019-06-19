@@ -1,5 +1,10 @@
 #! /usr/bin/env bash
 
+original_devbox_dir="${devbox_dir}"
+source ./../../scripts/functions.sh
+devbox_dir=${original_devbox_dir}
+cd ${tests_dir}
+
 ## Assertion groups
 
 function executeBasicCommonAssertions()

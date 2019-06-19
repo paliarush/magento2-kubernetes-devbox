@@ -11,11 +11,6 @@ source include/configuration.sh
 source include/helpers.sh
 source include/assertions.sh
 
-original_devbox_dir="${devbox_dir}"
-source ./../scripts/functions.sh
-devbox_dir=${original_devbox_dir}
-cd ${tests_dir}
-
 ## Setup and tear down
 
 function oneTimeSetUp
@@ -58,8 +53,8 @@ function testCe23WithSampleDataMysqlSearchNoNfs()
 
     installEnvironment
 
-    assertSourceCodeIsFromBranch "${devbox_dir}/$(getContext)" "2.3"
-    assertSourceCodeIsFromBranch "${devbox_dir}/$(getContext)/magento2-sample-data" "2.3"
+    assertSourceCodeIsFromBranch "${devbox_dir}/default" "2.3"
+    assertSourceCodeIsFromBranch "${devbox_dir}/default/magento2-sample-data" "2.3"
 
     executeBasicCommonAssertions
     assertCeSampleDataInstalled

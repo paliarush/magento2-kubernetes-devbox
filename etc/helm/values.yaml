@@ -26,6 +26,9 @@ monolith:
     imageTag: 7.1-fpm
     imagePullPolicy: Always
 global:
+  caching:
+    varnish:
+      enabled: true # This value is overridden via <devbox_project>/etc/instance/$(getContext).yaml
   checkout:
     enabled: false
     db:
@@ -36,15 +39,21 @@ global:
       port: 80
   monolith:
     service:
-      type: NodePort
-      nodePort: 30301
-      port: 8001
+      port: 8050
+      nginxPort: 8001
+      phpFpmPort: 9001
+      phpFpmXdebugPort: 9002
+      varnishPort: 6081
     mysqlHost: magento-mysql
     volumeHostPath: /Users/user/Projects/magento2-kubernetes-for-developers
   persistence:
     nfs:
-      enabled: true # This value is overridden via <devbox_project>/etc/config.yaml
-      serverIp: 192.168.99.1 # This value is overridden via <devbox_project>/etc/config.yaml
+      enabled: true # This value is overridden via <devbox_project>/etc/env/config.yaml
+      serverIp: 192.168.99.1 # This value is overridden via <devbox_project>/etc/env/config.yaml
+  dns:
+    magentoHosts:
+      ip: string_placeholder # This value is overridden in runtime from scripts/host/k_upgrade_environment.sh
+      hostnames: array_placeholder # This value is overridden in runtime from scripts/host/k_upgrade_environment.sh
 
 resources: {}
   # Uncomment the following

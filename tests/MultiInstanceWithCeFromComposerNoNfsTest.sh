@@ -26,7 +26,7 @@ function oneTimeSetUp
 function setUp()
 {
     debug_devbox_project=0
-    skip_codebase_stash=0
+#    skip_codebase_stash=0
 }
 
 function tearDown()
@@ -35,7 +35,7 @@ function tearDown()
 
     if [[ ${delete_test_project_on_tear_down} -eq 1 ]]; then
         stashLogs
-        stashMagentoCodebase
+#        stashMagentoCodebase
         clearTestTmp
     fi
 
@@ -51,27 +51,35 @@ See logs in ${logs_dir}"
 
 ## Tests
 
-function testCe23WithSampleDataMysqlSearchNoNfs()
+function testMultiInstanceWithCeFromComposerNoNfs()
 {
-    current_config_name="ce23_with_sample_data_mysql_search_no_nfs"
-    current_codebase="ce23_with_sample_data"
+    current_config_name="multi_instance_with_ce_from_composer_no_nfs"
+#    skip_codebase_stash=1
 
     installEnvironment
 
-    assertSourceCodeIsFromBranch "${devbox_dir}/magento" "2.3"
-    assertSourceCodeIsFromBranch "${devbox_dir}/magento/magento2ce-sample-data" "2.3"
+    # Second instance is the last installed
+    assertDevBoxContext "second"
 
     executeBasicCommonAssertions
-    assertCeSampleDataInstalled
     assertMagentoEditionIsCE
+    assertCeSampleDataNotInstalled
+    assertRedisCacheIsEnabled
 
-    assertElasticSearchDisabled
-    assertSearchWorks
-    assertElasticSearchEnablingWorks
+    # Default instance assertions
+    setDevBoxContext "default"
+    assertDevBoxContext "default"
+    current_magento_base_url="http://magento.default"
+
+    assertMagentoFrontendAccessible
+    assertMagentoCliWorks
+    assertMagentoEditionIsCE
 
     assertRedisCacheIsEnabled
 
     executeExtendedCommonAssertions
+
+    assertMainPageServedByBuiltInCache
 }
 
 ## Call and Run all Tests

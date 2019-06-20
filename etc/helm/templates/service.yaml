@@ -12,7 +12,7 @@ spec:
   type: {{ .Values.global.monolith.service.type }}
   ports:
     - port: {{ .Values.global.monolith.service.port }}
-      nodePort: {{ .Values.global.monolith.service.nodePort }}
+      targetPort: {{ if .Values.global.caching.varnish.enabled }}{{ .Values.global.monolith.service.varnishPort }}{{ else }}{{ .Values.global.monolith.service.nginxPort }}{{ end }}
   selector:
     app.kubernetes.io/name: {{ include "magento.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}

@@ -26,7 +26,7 @@ function oneTimeSetUp
 function setUp()
 {
     debug_devbox_project=0
-    skip_codebase_stash=0
+#    skip_codebase_stash=0
 }
 
 function tearDown()
@@ -35,7 +35,7 @@ function tearDown()
 
     if [[ ${delete_test_project_on_tear_down} -eq 1 ]]; then
         stashLogs
-        stashMagentoCodebase
+#        stashMagentoCodebase
         clearTestTmp
     fi
 
@@ -51,10 +51,10 @@ See logs in ${logs_dir}"
 
 ## Tests
 
-function testNoCustomConfigBasicTest()
+function testNoCustomConfigBasic()
 {
-    current_config_name="no_custom_config"
-    current_codebase="ce"
+    current_config_name="ce_shallow_clone_no_nfs"
+#    current_codebase="ce"
     installEnvironment
 #    assertVarnishDisabled
     executeBasicCommonAssertions

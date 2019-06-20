@@ -6,4 +6,4 @@ cd "$(dirname "${BASH_SOURCE[0]}")" && devbox_dir=$PWD
 
 source "${devbox_dir}/scripts/functions.sh"
 
-kubectl exec -it "$(getMysqlPodId)" --container magento2-mysql -- /bin/bash
+loginToPodContainer "$(getMysqlPodId)" "magento2-mysql"

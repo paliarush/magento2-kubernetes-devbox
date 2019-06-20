@@ -2,20 +2,20 @@
 
 function installEnvironment()
 {
-    stashMagentoCodebase
+#    stashMagentoCodebase
     clearTestTmp
     downloadDevboxProject
-    unstashMagentoCodebase
+#    unstashMagentoCodebase
     configureDevboxProject
     deployDevboxProject
 }
 
 function installEnvironmentWithUpgrade()
 {
-    stashMagentoCodebase
+#    stashMagentoCodebase
     clearTestTmp
     downloadBaseVersionOfDevboxProject
-    unstashMagentoCodebase
+#    unstashMagentoCodebase
     configureDevboxProject
     deployDevboxProject
     upgradeDevboxProject
@@ -81,9 +81,9 @@ function configureDevboxProject()
 {
     echo "${grey}## configureDevboxProject${regular}"
     echo "## configureDevboxProject" >>${current_log_file_path}
-    current_config_path="${test_config_dir}/${current_config_name}_config.yaml"
-    if [ -f ${current_config_path} ]; then
-        cp ${current_config_path} "${devbox_dir}/etc/config.yaml"
+    current_config_path="${test_config_dir}/etc/${current_config_name}"
+    if [ -d "${current_config_path}" ]; then
+        cp -a "${current_config_path}/." "${devbox_dir}/etc/"
     fi
     if [ -f ${tests_dir}/include/auth.json ]; then
         cp ${tests_dir}/include/auth.json "${devbox_dir}/etc/composer/auth.json"
@@ -106,38 +106,38 @@ function deployDevboxProject()
     }
 }
 
-function stashMagentoCodebase()
-{
-    if [[ ${skip_codebase_stash} == 0 ]] && [[ -d "${devbox_dir}/magento" ]]; then
-        echo "${grey}## stashMagentoCodebase${regular}"
-        echo "## stashMagentoCodebase" >>${current_log_file_path}
-        magento_stash_dir="${magento_codebase_stash_dir}/${current_codebase}"
-        rm -rf "${magento_stash_dir}"
-        mkdir -p "${magento_stash_dir}"
-        mv "${devbox_dir}/magento" "${magento_stash_dir}/magento"
-        rm -rf "${magento_stash_dir}/magento/var/*"
-        rm -rf "${magento_stash_dir}/magento/vendor/*"
-        rm -rf "${magento_stash_dir}/magento/pub/static/*"
-        rm -f "${magento_stash_dir}/magento/app/etc/config.php"
-        rm -f "${magento_stash_dir}/magento/dev/tests/api-functional/soap.xml"
-        rm -f "${magento_stash_dir}/magento/dev/tests/api-functional/rest.xml"
-        rm -f "${magento_stash_dir}/magento/dev/tests/functional/phpunit.xml"
-        rm -f "${magento_stash_dir}/magento/dev/tests/functional/etc/config.xml"
-        rm -f "${magento_stash_dir}/magento/dev/tests/integration/phpunit.xml"
-        rm -f "${magento_stash_dir}/magento/dev/tests/integration/etc/install-config-mysql.php"
-        rm -f "${magento_stash_dir}/magento/dev/tests/unit/phpunit.xml"
-    fi
-}
-
-function unstashMagentoCodebase()
-{
-    magento_stash_dir="${magento_codebase_stash_dir}/${current_codebase}/magento"
-    if [[ ${skip_codebase_stash} == 0 ]] && [[ -d "${magento_stash_dir}" ]]; then
-        echo "${grey}## unstashMagentoCodebase${regular}"
-        echo "## unstashMagentoCodebase" >>${current_log_file_path}
-        mv "${magento_stash_dir}" "${devbox_dir}/magento"
-    fi
-}
+#function stashMagentoCodebase()
+#{
+#    if [[ ${skip_codebase_stash} == 0 ]] && [[ -d "${devbox_dir}/$(getDevBoxContext)" ]]; then
+#        echo "${grey}## stashMagentoCodebase${regular}"
+#        echo "## stashMagentoCodebase" >>${current_log_file_path}
+#        magento_stash_dir="${magento_codebase_stash_dir}/${current_codebase}"
+#        rm -rf "${magento_stash_dir}"
+#        mkdir -p "${magento_stash_dir}"
+#        mv "${devbox_dir}/$(getDevBoxContext)" "${magento_stash_dir}/magento"
+#        rm -rf "${magento_stash_dir}/magento/var/*"
+#        rm -rf "${magento_stash_dir}/magento/vendor/*"
+#        rm -rf "${magento_stash_dir}/magento/pub/static/*"
+#        rm -f "${magento_stash_dir}/magento/app/etc/config.php"
+#        rm -f "${magento_stash_dir}/magento/dev/tests/api-functional/soap.xml"
+#        rm -f "${magento_stash_dir}/magento/dev/tests/api-functional/rest.xml"
+#        rm -f "${magento_stash_dir}/magento/dev/tests/functional/phpunit.xml"
+#        rm -f "${magento_stash_dir}/magento/dev/tests/functional/etc/config.xml"
+#        rm -f "${magento_stash_dir}/magento/dev/tests/integration/phpunit.xml"
+#        rm -f "${magento_stash_dir}/magento/dev/tests/integration/etc/install-config-mysql.php"
+#        rm -f "${magento_stash_dir}/magento/dev/tests/unit/phpunit.xml"
+#    fi
+#}
+#
+#function unstashMagentoCodebase()
+#{
+#    magento_stash_dir="${magento_codebase_stash_dir}/${current_codebase}/magento"
+#    if [[ ${skip_codebase_stash} == 0 ]] && [[ -d "${magento_stash_dir}" ]]; then
+#        echo "${grey}## unstashMagentoCodebase${regular}"
+#        echo "## unstashMagentoCodebase" >>${current_log_file_path}
+#        mv "${magento_stash_dir}" "${devbox_dir}/$(getDevBoxContext)"
+#    fi
+#}
 
 function hardReboot()
 {
@@ -208,6 +208,16 @@ function refreshSearchIndexes()
     bash m-bin-magento indexer:reindex catalogsearch_fulltext >>${current_log_file_path} 2>&1
 }
 
+function emulateEeRepoCloning()
+{
+    echo "${grey}## emulateEeDownloading${regular}"
+    echo "## emulateEeDownloading" >>${current_log_file_path}
+
+    cp -r "${tests_dir}/_files/magento2ee" "${devbox_dir}/$(getDevBoxContext)/"
+    cp "${devbox_dir}/$(getDevBoxContext)/composer.lock" "${devbox_dir}/$(getDevBoxContext)/magento2ee/composer.lock"
+    sed -i.back 's|Composer installer for Magento modules|Composer installer for Magento modules EE MARK FOR TESTS|g' "${devbox_dir}/$(getDevBoxContext)/magento2ee/composer.lock" >>${current_log_file_path} 2>&1
+}
+
 function logAndEcho() {
     if [[ -n "${1}" ]]; then
         input="${1}"
@@ -218,4 +228,19 @@ function logAndEcho() {
         echo "${input}"
         echo "${input}" >> "${current_log_file_path}"
     fi
+}
+
+function setDevBoxContext()
+{
+    echo "${grey}## setDevBoxContext${regular}"
+    echo "## setDevBoxContext" >>${current_log_file_path}
+
+    context=${1}
+    bash "${devbox_dir}/k-set-context" ${context} >>${current_log_file_path} 2>&1
+}
+
+
+function getDevBoxContext()
+{
+    bash "${devbox_dir}/k-get-context"
 }

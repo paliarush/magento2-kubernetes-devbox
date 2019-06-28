@@ -64,6 +64,7 @@ if [[ ! -f "${magento_tests_root}/api-functional/phpunit_graphql.xml" ]] && [[ -
 fi
 
 # Functional tests
+# TODO: Eliminate MTF tests since they are deprecated in favor of MFTF
 if [[ ! -f "${magento_tests_root}/functional/phpunit.xml" ]] && [[ -f "${magento_tests_root}/functional/phpunit.xml.dist" ]]; then
     status "Creating configuration for Functional tests"
     cp "${magento_tests_root}/functional/phpunit.xml.dist" "${magento_tests_root}/functional/phpunit.xml"
@@ -88,5 +89,8 @@ if [[ ! -f "${magento_tests_root}/functional/phpunit.xml" ]] && [[ -f "${magento
         rm -f "${magento_tests_root}/functional/etc/config.xml.back"
     fi
 fi
+
+status "Configuring MFTF tests using build:project"
+${devbox_dir}/$(getDevBoxContext)/vendor/bin/mftf build:project --MAGENTO_BASE_URL="http://magento.$(getDevBoxContext)/" 2> >(logError) > >(log)
 
 decrementNestingLevel

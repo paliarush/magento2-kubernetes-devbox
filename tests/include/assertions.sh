@@ -605,3 +605,13 @@ function assertMagentoSoapTestsWork()
 
     assertTrue "SOAP tests are not configured properly (failed to run them over ssh)." '[[ ${remote_test_execution_status} =~ "OK (1 test, 1 assertion)" ]]'
 }
+
+function assertMagentoMftfTestsWork()
+{
+    echo "${blue}## assertMagentoMftfTestsWork${regular}"
+    echo "## assertMagentoMftfTestsWork" >>${current_log_file_path}
+
+    remote_test_execution_status="$(expect  "${tests_dir}/_files/run_command_over_ssh_in_cluster.sh" "'${devbox_dir}/$(getDevBoxContext)/vendor/bin/mftf' run:test AdminLoginTest")"
+
+    assertTrue "MFTF tests are not configured properly (failed to run them over ssh)." '[[ ${remote_test_execution_status} =~ "OK (1 test, 1 assertion)" ]]'
+}

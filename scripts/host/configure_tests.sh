@@ -91,6 +91,6 @@ if [[ ! -f "${magento_tests_root}/functional/phpunit.xml" ]] && [[ -f "${magento
 fi
 
 status "Configuring MFTF tests using build:project"
-${devbox_dir}/$(getDevBoxContext)/vendor/bin/mftf build:project --MAGENTO_BASE_URL="http://magento.$(getDevBoxContext)/" 2> >(logError) > >(log)
+executeInMagento2Container "${devbox_dir}/$(getContext)/vendor/bin/mftf build:project" -- "--MAGENTO_BASE_URL="http://magento.$(getContext)/"" 2> >(logError)
 
 decrementNestingLevel

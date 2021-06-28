@@ -91,8 +91,8 @@ cd "${devbox_dir}"
 # TODO: Verify that this condition works as expected
 if [[ ! $(isMinikubeRunning) -eq 1 ]]; then
     status "Starting minikube"
-    minikube start --kubernetes-version=v1.15.6 -v=0 --cpus=2 --memory=4096
-    minikube config set kubernetes-version v1.15.6
+    minikube start --driver=virtualbox --kubernetes-version=v1.20.7 -v=0 --cpus=2 --memory=3900
+    minikube config set kubernetes-version v1.20.7
     minikube addons enable ingress
 fi
 
@@ -116,7 +116,7 @@ bash "${devbox_dir}/scripts/host/configure_etc_hosts.sh"
 
 status "Configuring kubernetes cluster on the minikube"
 # TODO: Optimize. Helm tiller must be initialized and started before environment configuration can begin
-helm init --wait
+#helm init --wait
 #waitForKubernetesPodToRun 'tiller-deploy'
 
 # TODO: Do not clean up environment when '-f' flag was not specified

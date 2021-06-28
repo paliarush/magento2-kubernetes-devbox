@@ -28,8 +28,8 @@ for release in "$@"; do
     status "Deleting release ${release}"
 
     if helm ls -q --all | grep -qF "${release}"; then
-        info "Found helm release; deleting with --purge"
-        helm delete "${release}" --purge
+        info "Found helm release; deleting with purge"
+        helm delete "${release}"
     else
         info "No release found; deleting manually"
         for kind in "${kinds[@]}"; do
@@ -107,7 +107,7 @@ for release in "$@"; do
         exit 1
     fi
 
-    success "Deleted all helm-created resources for release ${release}"
+    success "TODO: REWRITE CHECK IF ACTUALLY DELETED - Deleted all helm-created resources for release ${release}"
     decrementNestingLevel
 done
 decrementNestingLevel

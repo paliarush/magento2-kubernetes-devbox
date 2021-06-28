@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: magento-ingress
@@ -13,6 +13,9 @@ spec:
   - http:
       paths:
       - path: /
+        pathType: Exact
         backend:
-          serviceName: {{ include "magento.fullname" . }}
-          servicePort: {{ .Values.global.monolith.service.port }}
+          service:
+            name: {{ include "magento.fullname" . }}
+            port:
+              number: {{ .Values.global.monolith.service.port }}

@@ -31,8 +31,11 @@ for instance_name in $(getInstanceList); do
 done
 magentoHostnames="[$(echo "${etc_host_records}" | sed 's/^\\, //g')]"
 
+status "Applying workaround for https://github.com/kubernetes/ingress-nginx/issues/5968"
+kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+
 cd "${devbox_dir}/etc/helm" && helm install \
-    --name magento2 \
+    magento2 \
     --values values.yaml \
     --wait \
     --set global.persistence.nfs.serverIp="${nfs_server_ip}" \

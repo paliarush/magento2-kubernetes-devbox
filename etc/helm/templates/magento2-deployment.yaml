@@ -77,6 +77,10 @@ spec:
                         value: {{.Values.global.monolith.volumeHostPath}}/.composer
                       - name: DEVBOX_ROOT_HOST
                         value: {{.Values.global.monolith.volumeHostPath}}
+                - name: {{ .Chart.Name }}-selenium
+                  image: selenium/standalone-chrome
+                  ports:
+                      - containerPort: 4444
                 - name: nginx
                   image: nginx:1.9
                   securityContext:

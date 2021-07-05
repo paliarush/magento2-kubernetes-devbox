@@ -30,6 +30,15 @@ server {
   server_name $(getInstanceDomainName ${instance_name});
   set \$MAGE_ROOT {{.Values.global.monolith.volumeHostPath}}/${instance_name};
   {{- include "common.nginx.config" . | nindent 2 }}
+  location ~* ^/dev/tests/acceptance/utils($|/) {
+    root \$MAGE_ROOT;
+    location ~ ^/dev/tests/acceptance/utils/command.php {
+      fastcgi_pass   fastcgi_backend;
+      fastcgi_index  index.php;
+      fastcgi_param  SCRIPT_FILENAME  \$document_root\$fastcgi_script_name;
+      include        fastcgi_params;
+    }
+  }
 }
 LITERAL
 done
